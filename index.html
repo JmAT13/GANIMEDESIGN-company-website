@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GANIMEDESIGN | すべてを、デザインする。</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a3c2a;
+            --primary-light: #6b5a45;
+            --primary-dark: #3d3225;
+            --accent: #7dd3c0;
+            --accent-dark: #5ec4ad;
+            --accent-darker: #4db8a5;
+            --bg-light: #7dd3c0;
+            --bg-dark: #5ec4ad;
+            --bg-white: #8fe0d0;
+            --text-dark: #4a3c2a;
+            --text-light: #f5f5f3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8; 
+            color: var(--text-dark);
+            background: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .animate-on-scroll.animated { opacity: 1; transform: translateY(0); }
+
+        /* ========== Header ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            transition: all 0.5s ease;
+        }
+        header.scrolled {
+            background: rgba(125, 211, 192, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4rem;
+            box-shadow: 0 4px 30px rgba(74, 60, 42, 0.1);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            transition: opacity 0.3s;
+        }
+        .logo:hover { opacity: 0.7; }
+        nav { display: flex; gap: 2.5rem; }
+        nav a {
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 1px;
+            background: var(--primary);
+            transition: 0.3s;
+        }
+
+        /* ========== Hero ========== */
+        .hero {
+            min-height: 90vh;
+            background: linear-gradient(-45deg, #7dd3c0, #5ec4ad, #8fe0d0, #4db8a5);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -15%;
+            width: 50vw;
+            height: 50vw;
+            border: 1px solid rgba(74, 60, 42, 0.06);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.4em;
+            color: var(--primary);
+            opacity: 0.6;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+        .hero h1 span {
+            font-style: italic;
+        }
+        .hero-sub {
+            font-size: 1rem;
+            color: var(--primary);
+            opacity: 0.7;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--text-light);
+            border: 1px solid var(--primary);
+        }
+        .btn-primary:hover {
+            background: var(--primary-light);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--text-light);
+        }
+
+        /* ========== News Bar ========== */
+        .news-bar {
+            background: var(--primary);
+            color: var(--text-light);
+            padding: 1rem 2rem;
+        }
+        .news-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .news-bar-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+        .news-bar-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .news-bar-date {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .news-bar-title {
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+        .news-bar-title a {
+            transition: opacity 0.3s;
+        }
+        .news-bar-title a:hover {
+            opacity: 0.7;
+        }
+        .news-bar-link {
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .news-bar-link:hover {
+            opacity: 1;
+        }
+
+        /* ========== In-house CF Section ========== */
+        .cf-section {
+            padding: 8rem 2rem;
+            background: var(--bg-white);
+        }
+        .cf-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .section-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            opacity: 0.6;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        .section-desc {
+            font-size: 1rem;
+            color: var(--primary);
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 2;
+        }
+        .cf-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        .cf-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.5rem 1rem;
+            min-width: 100px;
+        }
+        .cf-step-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+        }
+        .cf-step-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .cf-arrow {
+            color: var(--primary);
+            opacity: 0.4;
+            font-size: 1.5rem;
+        }
+        .cf-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* ========== Projects Section ========== */
+        .projects-section {
+            padding: 8rem 2rem;
+            background: var(--bg-light);
+        }
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .project-card {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(74, 60, 42, 0.15);
+        }
+        .project-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .project-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.4rem 1rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            border-radius: 50px;
+            background: var(--primary);
+            color: var(--text-light);
+        }
+        .project-status.planning {
+            background: var(--accent-dark);
+            color: var(--primary);
+        }
+        .project-content {
+            padding: 2rem;
+        }
+        .project-category {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--primary);
+            opacity: 0.6;
+            margin-bottom: 0.5rem;
+        }
+        .project-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        .project-desc {
+            font-size: 0.85rem;
+            color: var(--primary);
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+        .section-footer {
+            text-align: center;
+        }
+
+        /* ========== Business Section ========== */
+        .business-section {
+            padding: 8rem 2rem;
+            background: var(--bg-dark);
+        }
+        .business-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .business-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .business-card:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-5px);
+        }
+        .business-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+        .business-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        .business-subtitle {
+            font-size: 0.75rem;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+
+        /* ========== News Section ========== */
+        .news-section {
+            padding: 8rem 2rem;
+            background: var(--bg-white);
+        }
+        .news-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .news-list {
+            margin-bottom: 3rem;
+        }
+        .news-item {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(74, 60, 42, 0.1);
+        }
+        .news-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--primary);
+            opacity: 0.6;
+            min-width: 100px;
+        }
+        .news-content {
+            flex: 1;
+        }
+        .news-category {
+            display: inline-block;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 0.8rem;
+            background: var(--primary);
+            color: var(--text-light);
+            border-radius: 50px;
+            margin-bottom: 0.75rem;
+        }
+        .news-category.service {
+            background: var(--accent-dark);
+            color: var(--primary);
+        }
+        .news-category.media {
+            background: var(--primary-light);
+        }
+        .news-title {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .news-title a {
+            transition: opacity 0.3s;
+        }
+        .news-title a:hover {
+            opacity: 0.6;
+        }
+        .news-excerpt {
+            font-size: 0.85rem;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+
+        /* ========== Contact CTA ========== */
+        .contact-section {
+            padding: 8rem 2rem;
+            background: var(--primary);
+            text-align: center;
+        }
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .contact-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        .contact-desc {
+            font-size: 1rem;
+            color: var(--text-light);
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            line-height: 2;
+        }
+        .btn-light {
+            background: var(--text-light);
+            color: var(--primary);
+            border: 1px solid var(--text-light);
+        }
+        .btn-light:hover {
+            background: transparent;
+            color: var(--text-light);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 5rem 2rem 2rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+        .footer-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        .footer-section ul { list-style: none; }
+        .footer-section li { margin-bottom: 0.5rem; }
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+        .footer-section a:hover { color: var(--accent); }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(125, 211, 192, 0.2);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.1em;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 1024px) {
+            .business-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 2rem; }
+            header.scrolled { padding: 1rem 2rem; }
+            nav { display: none; }
+            .menu-toggle { display: flex; }
+
+            .hero { min-height: 80vh; padding: 6rem 1.5rem; }
+            .hero-buttons { flex-direction: column; gap: 1rem; }
+
+            .news-bar-inner { flex-direction: column; gap: 1rem; text-align: center; }
+
+            .cf-flow { gap: 0.25rem; }
+            .cf-step { min-width: 70px; padding: 1rem 0.5rem; }
+            .cf-step-icon { width: 40px; height: 40px; font-size: 1rem; }
+            .cf-arrow { font-size: 1rem; }
+            .cf-buttons { flex-direction: column; }
+
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-image { height: 180px; }
+
+            .business-grid { grid-template-columns: 1fr; }
+
+            .news-item { flex-direction: column; gap: 1rem; }
+            .news-date { min-width: auto; }
+
+            .footer-content { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDESIGN</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="inhouse-cf.html">仕組み</a>
+                <a href="projects.html">プロジェクト</a>
+                <a href="business.html">事業内容</a>
+                <a href="news.html">お知らせ</a>
+                <a href="about.html">会社について</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="hero-label">GANIMEDESIGN</span>
+        <h1>すべてを、<span>デザイン</span>する。</h1>
+        <p class="hero-sub">業種の壁を越え、あらゆる社会課題を「デザイン」で解決する。<br>それがGANIMEDESIGNのアプローチです。</p>
+        <div class="hero-buttons">
+            <a href="inhouse-cf.html" class="btn btn-primary">仕組みを見る →</a>
+            <a href="projects.html" class="btn btn-secondary">プロジェクトを見る</a>
+        </div>
+    </section>
+
+    <!-- News Bar -->
+    <section class="news-bar">
+        <div class="news-bar-inner">
+            <span class="news-bar-label">NEWS</span>
+            <div class="news-bar-content">
+                <span class="news-bar-date">2024.12.01</span>
+                <span class="news-bar-title"><a href="news.html">Webサイトをリニューアルしました</a></span>
+            </div>
+            <a href="news.html" class="news-bar-link">すべてのお知らせ →</a>
+        </div>
+    </section>
+
+    <!-- In-house CF Section -->
+    <section class="cf-section">
+        <div class="cf-container animate-on-scroll">
+            <span class="section-label">IN-HOUSE PLANNING CLOUD FUNDING</span>
+            <h2 class="section-title">自社企画型クラウドファンディング</h2>
+            <p class="section-desc">
+                私たちは「自社で企画し、自ら資金を集め、実行する」独自のモデルを構築しました。<br>
+                構想から社会実装まで、すべてを一貫して手がけます。
+            </p>
+            <div class="cf-flow">
+                <div class="cf-step">
+                    <div class="cf-step-icon">1</div>
+                    <span class="cf-step-label">構想</span>
+                </div>
+                <span class="cf-arrow">→</span>
+                <div class="cf-step">
+                    <div class="cf-step-icon">2</div>
+                    <span class="cf-step-label">設計</span>
+                </div>
+                <span class="cf-arrow">→</span>
+                <div class="cf-step">
+                    <div class="cf-step-icon">3</div>
+                    <span class="cf-step-label">資金</span>
+                </div>
+                <span class="cf-arrow">→</span>
+                <div class="cf-step">
+                    <div class="cf-step-icon">4</div>
+                    <span class="cf-step-label">実装</span>
+                </div>
+                <span class="cf-arrow">→</span>
+                <div class="cf-step">
+                    <div class="cf-step-icon">5</div>
+                    <span class="cf-step-label">社会</span>
+                </div>
+            </div>
+            <div class="cf-buttons">
+                <a href="inhouse-cf.html" class="btn btn-primary">仕組みを詳しく →</a>
+                <a href="projects.html" class="btn btn-secondary">進行中プロジェクト</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <div class="projects-container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">PROJECTS</span>
+                <h2 class="section-title">プロジェクト</h2>
+            </div>
+            <div class="projects-grid">
+                <a href="project-life.html" class="project-card animate-on-scroll">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600');">
+                        <span class="project-status">進行中</span>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">LIFE DESIGN</span>
+                        <h3 class="project-title">介護村プロジェクト</h3>
+                        <p class="project-desc">高齢者が安心して暮らせる、新しい介護コミュニティの構築</p>
+                    </div>
+                </a>
+                <a href="project-finance.html" class="project-card animate-on-scroll">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600');">
+                        <span class="project-status">進行中</span>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">SYSTEM DESIGN</span>
+                        <h3 class="project-title">医療×金融プロジェクト</h3>
+                        <p class="project-desc">医療と金融を融合した、新しい社会インフラの設計</p>
+                    </div>
+                </a>
+            </div>
+            <div class="section-footer animate-on-scroll">
+                <a href="projects.html" class="btn btn-secondary">すべてのプロジェクト →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Section -->
+    <section class="business-section">
+        <div class="business-container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">BUSINESS</span>
+                <h2 class="section-title">事業内容</h2>
+            </div>
+            <div class="business-grid">
+                <a href="business.html#space" class="business-card animate-on-scroll">
+                    <div class="business-number">01</div>
+                    <h3 class="business-title">Space Design</h3>
+                    <p class="business-subtitle">空間をデザインする</p>
+                </a>
+                <a href="business.html#life" class="business-card animate-on-scroll">
+                    <div class="business-number">02</div>
+                    <h3 class="business-title">Life Design</h3>
+                    <p class="business-subtitle">生活をデザインする</p>
+                </a>
+                <a href="business.html#system" class="business-card animate-on-scroll">
+                    <div class="business-number">03</div>
+                    <h3 class="business-title">System Design</h3>
+                    <p class="business-subtitle">仕組みをデザインする</p>
+                </a>
+                <a href="business.html#brand" class="business-card animate-on-scroll">
+                    <div class="business-number">04</div>
+                    <h3 class="business-title">Brand Design</h3>
+                    <p class="business-subtitle">物語をデザインする</p>
+                </a>
+            </div>
+            <div class="section-footer animate-on-scroll">
+                <a href="business.html" class="btn btn-secondary">事業内容を見る →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <div class="news-container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label">NEWS</span>
+                <h2 class="section-title">お知らせ</h2>
+            </div>
+            <div class="news-list">
+                <div class="news-item animate-on-scroll">
+                    <div class="news-date">2024.12.01</div>
+                    <div class="news-content">
+                        <span class="news-category">お知らせ</span>
+                        <h3 class="news-title"><a href="news.html">Webサイトをリニューアルしました</a></h3>
+                        <p class="news-excerpt">より見やすく、より使いやすくなったWebサイトをぜひご覧ください。</p>
+                    </div>
+                </div>
+                <div class="news-item animate-on-scroll">
+                    <div class="news-date">2024.11.15</div>
+                    <div class="news-content">
+                        <span class="news-category service">サービス</span>
+                        <h3 class="news-title"><a href="news.html">インド移動診療車プロジェクト開始</a></h3>
+                        <p class="news-excerpt">インド農村部での医療アクセス向上を目指すプロジェクトがスタートしました。</p>
+                    </div>
+                </div>
+                <div class="news-item animate-on-scroll">
+                    <div class="news-date">2024.10.20</div>
+                    <div class="news-content">
+                        <span class="news-category media">メディア</span>
+                        <h3 class="news-title"><a href="news.html">日経新聞に掲載されました</a></h3>
+                        <p class="news-excerpt">「医療と建築の融合」についての取り組みが紹介されました。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section-footer animate-on-scroll">
+                <a href="news.html" class="btn btn-secondary">すべてのお知らせ →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-section">
+        <div class="contact-container animate-on-scroll">
+            <span class="contact-label">CONTACT</span>
+            <h2 class="contact-title">お問い合わせ</h2>
+            <p class="contact-desc">
+                プロジェクトへの参画、協業のご相談、<br>
+                その他お問い合わせはこちらから。
+            </p>
+            <a href="contact.html" class="btn btn-light">相談する →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>COMPANY</h3>
+                <ul>
+                    <li><a href="about.html">会社について</a></li>
+                    <li><a href="about.html#philosophy">企業理念</a></li>
+                    <li><a href="about.html#company-info">会社概要</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SERVICES</h3>
+                <ul>
+                    <li><a href="inhouse-cf.html">In-house Planning CF</a></li>
+                    <li><a href="business.html">事業内容</a></li>
+                    <li><a href="projects.html">プロジェクト</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <ul>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="mailto:info@ganime.jp">info@ganime.jp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 GANIMEDESIGN Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>極限環境下の命の設計 | GANIMEDESIGN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7dd3c0;
+            --primary-dark: #5ec4ad;
+            --primary-darker: #4db8a5;
+            --accent: #4a3c2a;
+            --accent-light: #6b5a45;
+            --bg-dark: #5ec4ad;
+            --bg-light: #7dd3c0;
+            --bg-lighter: #8fe0d0;
+            --text-dark: #4a3c2a;
+            --text-light: #f5f5f3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8; 
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== Header ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            background: rgba(125, 211, 192, 0.95);
+            backdrop-filter: blur(20px);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            transition: opacity 0.3s;
+        }
+        .logo:hover { opacity: 0.7; }
+        nav { display: flex; gap: 3rem; }
+        nav a {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* ========== Hero ========== */
+        .project-hero {
+            min-height: 70vh;
+            background: var(--accent);
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
+        }
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 80% 60% at 70% 30%, rgba(125, 211, 192, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .project-hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+        .project-hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            filter: grayscale(40%);
+        }
+        .project-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .project-category {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .project-category::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--primary);
+        }
+        .project-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            color: var(--text-light);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .project-tagline {
+            font-size: 1.1rem;
+            font-weight: 200;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+        }
+
+        /* ========== Content ========== */
+        .project-content {
+            padding: 6rem 2rem;
+            background: var(--bg-light);
+        }
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--primary);
+        }
+        .content-text {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 2.2;
+            margin-bottom: 3rem;
+        }
+        .content-text p {
+            margin-bottom: 2rem;
+        }
+        .highlight-box {
+            background: var(--accent);
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+        .highlight-box p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--bg-light);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* ========== Keywords ========== */
+        .keywords-section {
+            padding: 5rem 2rem;
+            background: var(--primary-darker);
+        }
+        .keywords-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .keywords-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+            background: rgba(74, 60, 42, 0.1);
+        }
+        .keyword-item {
+            background: var(--primary-darker);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+        }
+        .keyword-item span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+        }
+
+        /* ========== Approach ========== */
+        .approach-section {
+            padding: 6rem 2rem;
+            background: var(--bg-light);
+        }
+        .approach-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .approach-header {
+            margin-bottom: 4rem;
+        }
+        .approach-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 300;
+            color: var(--accent);
+        }
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .approach-card {
+            padding: 2.5rem;
+            border: 1px solid rgba(74, 60, 42, 0.15);
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.4s;
+        }
+        .approach-card:hover {
+            background: var(--accent);
+            border-color: transparent;
+        }
+        .approach-card:hover .approach-number,
+        .approach-card:hover h3,
+        .approach-card:hover p {
+            color: var(--text-light);
+        }
+        .approach-card:hover .approach-number {
+            color: var(--bg-light);
+        }
+        .approach-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--accent);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+            transition: color 0.4s;
+        }
+        .approach-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            transition: color 0.4s;
+        }
+        .approach-card p {
+            font-size: 0.9rem;
+            font-weight: 200;
+            color: var(--accent-light);
+            line-height: 1.8;
+            transition: color 0.4s;
+        }
+
+        /* ========== Related Projects ========== */
+        .related-section {
+            padding: 6rem 2rem;
+            background: var(--bg-lighter);
+        }
+        .related-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .related-header {
+            margin-bottom: 3rem;
+        }
+        .related-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--accent);
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .related-card {
+            background: var(--accent);
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+        .related-card:hover {
+            transform: translateY(-5px);
+        }
+        .related-card-category {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--bg-light);
+            margin-bottom: 0.5rem;
+        }
+        .related-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            padding: 8rem 2rem;
+            background: var(--accent);
+            text-align: center;
+        }
+        .cta-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        .cta-section p {
+            font-size: 1rem;
+            font-weight: 200;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2.5rem;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--bg-light);
+            color: var(--accent);
+            padding: 1.2rem 3rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            transition: all 0.4s ease;
+            border-radius: 50px;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(125, 211, 192, 0.4);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background: var(--accent);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid rgba(125, 211, 192, 0.2);
+        }
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            letter-spacing: 0.3em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .footer-copy {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.1em;
+        }
+
+        /* ========== Mobile Menu ========== */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 1024px) {
+            .keywords-grid { grid-template-columns: repeat(3, 1fr); }
+            .approach-grid { grid-template-columns: 1fr; }
+            .related-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 2rem; }
+            nav { display: none; }
+            .menu-toggle { display: flex; }
+            .project-hero { min-height: 60vh; padding: 6rem 1.5rem 3rem; }
+            .project-content { padding: 4rem 1.5rem; }
+            .keywords-grid { grid-template-columns: repeat(2, 1fr); }
+            .keyword-item { padding: 1.5rem 1rem; }
+            .approach-section { padding: 4rem 1.5rem; }
+            .related-section { padding: 4rem 1.5rem; }
+            .cta-section { padding: 5rem 1.5rem; }
+            .highlight-box { padding: 2rem; }
+            .highlight-box p { font-size: 1.2rem; }
+            .footer-container { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDESIGN</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="inhouse-cf.html">仕組み</a>
+                <a href="projects.html">プロジェクト</a>
+                <a href="business.html">事業内容</a>
+                <a href="news.html">お知らせ</a>
+                <a href="about.html">会社について</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="project-hero">
+        <div class="project-hero-image">
+            <img src="Hospital.png" alt="Project Image">
+        </div>
+        <div class="project-hero-content">
+            <div class="project-category">LIFE DESIGN</div>
+            <h1 class="project-title">極限環境下の<br>命の設計</h1>
+            <p class="project-tagline">限られた時間と資源の中で、最適な判断を可能にする構造を構築する</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="project-content">
+        <div class="content-container">
+            <div class="section-label">PROJECT OVERVIEW</div>
+            <div class="content-text">
+                <p>極限環境において、命を守るための判断は一瞬で下される。その一瞬の精度を高めるために、私たちは「設計」という視点から問題に向き合う。</p>
+                <p>能力の問題ではない。構造の問題だ。どれだけ優秀な人材がいても、設計が悪ければ力を発揮できない。逆に、設計が良ければ、普通の人でも最適解に近づける。</p>
+                <p>私たちが設計するのは、判断のフレームワーク、情報の流れ、リソースの配置、そして時間の使い方。これらを統合的に再構築することで、失敗できない現場に、失敗しにくい構造を実装する。</p>
+            </div>
+            
+            <div class="highlight-box">
+                <p>「失敗できない」を「失敗しにくい」に変える。<br>それが、命の設計だ。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keywords -->
+    <section class="keywords-section">
+        <div class="keywords-container">
+            <div class="keywords-grid">
+                <div class="keyword-item"><span>現場</span></div>
+                <div class="keyword-item"><span>極限環境</span></div>
+                <div class="keyword-item"><span>人の判断</span></div>
+                <div class="keyword-item"><span>時間制約</span></div>
+                <div class="keyword-item"><span>失敗できない設計</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approach -->
+    <section class="approach-section">
+        <div class="approach-container">
+            <div class="approach-header">
+                <div class="section-label">APPROACH</div>
+                <h2>このプロジェクトにおける設計思想</h2>
+            </div>
+            <div class="approach-grid">
+                <div class="approach-card">
+                    <div class="approach-number">01</div>
+                    <h3>判断の分解</h3>
+                    <p>極限状況での判断を要素に分解し、どこにボトルネックがあるかを特定する。感覚や経験に頼っていた部分を、構造として可視化する。</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-number">02</div>
+                    <h3>情報フローの再設計</h3>
+                    <p>必要な情報が、必要な人に、必要なタイミングで届く仕組みを構築。情報の過不足を最適化し、判断の質を上げる。</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-number">03</div>
+                    <h3>冗長性の組み込み</h3>
+                    <p>単一障害点をなくし、どこかが機能しなくても全体が止まらない設計を行う。完璧を目指すのではなく、失敗に強い構造を作る。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Projects -->
+    <section class="related-section">
+        <div class="related-container">
+            <div class="related-header">
+                <h2>関連するプロジェクト</h2>
+            </div>
+            <div class="related-grid">
+                <a href="project-space-connect.html" class="related-card">
+                    <div class="related-card-category">SPACE + SYSTEM</div>
+                    <h3>病院と在宅を接続する構造設計</h3>
+                </a>
+                <a href="project-finance.html" class="related-card">
+                    <div class="related-card-category">SYSTEM + STORY</div>
+                    <h3>介護施設を起点とした金融構造</h3>
+                </a>
+                <a href="project-regional.html" class="related-card">
+                    <div class="related-card-category">SPACE + SYSTEM</div>
+                    <h3>温泉資源を核にした地域再設計</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>設計の相談</h2>
+            <p>同様の課題をお持ちの方、一緒に設計しましょう。</p>
+            <a href="contact.html" class="cta-btn">
+                <span>CONTACT US</span>
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>COMPANY</h3>
+                <ul>
+                    <li><a href="about.html">会社について</a></li>
+                    <li><a href="about.html#philosophy">企業理念</a></li>
+                    <li><a href="about.html#company-info">会社概要</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SERVICES</h3>
+                <ul>
+                    <li><a href="inhouse-cf.html">In-house Planning CF</a></li>
+                    <li><a href="business.html">事業内容</a></li>
+                    <li><a href="projects.html">プロジェクト</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <ul>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="mailto:info@ganime.jp">info@ganime.jp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 GANIMEDESIGN Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

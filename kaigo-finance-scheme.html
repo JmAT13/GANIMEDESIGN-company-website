@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>介護金融スキーム | GANIMEDESIGN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7dd3c0;
+            --primary-dark: #5ec4ad;
+            --primary-darker: #4db8a5;
+            --primary-light: #8fe0d0;
+            --accent: #4a3c2a;
+            --accent-light: #6b5a45;
+            --bg-light: #7dd3c0;
+            --text-dark: #4a3c2a;
+            --text-light: #f5f5f3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif; 
+            line-height: 1.8; 
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== Header ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            background: rgba(125, 211, 192, 0.95);
+            backdrop-filter: blur(20px);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+        }
+        nav { display: flex; gap: 3rem; }
+        nav a {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+
+        /* ========== Hero ========== */
+        .hero {
+            min-height: 70vh;
+            background: var(--accent);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse 80% 60% at 70% 30%, rgba(125, 211, 192, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+        .hero-label::before, .hero-label::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--primary);
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            max-width: 600px;
+            position: relative;
+        }
+
+        /* ========== Sections ========== */
+        .section {
+            padding: 6rem 2rem;
+        }
+        .section-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 300;
+            color: var(--accent);
+        }
+        .section-title .highlight {
+            font-style: italic;
+        }
+
+        /* ========== Scheme Overview ========== */
+        .scheme-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .scheme-card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.4s;
+        }
+        .scheme-card:hover {
+            background: white;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(74, 60, 42, 0.1);
+        }
+        .scheme-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .scheme-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+        .scheme-card p {
+            font-size: 0.9rem;
+            color: var(--accent-light);
+            font-weight: 300;
+        }
+
+        /* ========== Comparison ========== */
+        .comparison {
+            background: var(--primary-dark);
+            padding: 4rem 2rem;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .comparison-card {
+            padding: 2.5rem;
+            border-radius: 16px;
+        }
+        .comparison-card.old {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .comparison-card.new {
+            background: var(--accent);
+            color: var(--text-light);
+        }
+        .comparison-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .old .comparison-label {
+            background: rgba(74, 60, 42, 0.1);
+            color: var(--accent);
+        }
+        .new .comparison-label {
+            background: var(--primary);
+            color: var(--accent);
+        }
+        .comparison-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+        .comparison-card ul {
+            list-style: none;
+        }
+        .comparison-card li {
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .old li::before { content: '✗'; color: #e74c3c; }
+        .new li::before { content: '✓'; color: var(--primary); }
+
+        /* ========== Credit Check ========== */
+        .credit-section {
+            background: var(--primary-light);
+            padding: 6rem 2rem;
+        }
+        .credit-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(74, 60, 42, 0.1);
+        }
+        .form-step {
+            margin-bottom: 2rem;
+        }
+        .form-step-title {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--primary-darker);
+            margin-bottom: 0.5rem;
+        }
+        .form-step h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .form-input, .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: var(--primary-light);
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(74, 60, 42, 0.3);
+        }
+
+        /* ========== Result ========== */
+        .result-box {
+            margin-top: 2rem;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            display: none;
+        }
+        .result-box.show { display: block; }
+        .result-box.success {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border: 1px solid #22c55e;
+        }
+        .result-box.warning {
+            background: linear-gradient(135deg, #fef9c3, #fef08a);
+            border: 1px solid #eab308;
+        }
+        .result-box h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .result-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .result-rank {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+        .rank-A { background: #22c55e; color: white; }
+        .rank-B { background: #eab308; color: white; }
+        .rank-C { background: #ef4444; color: white; }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            background: var(--accent);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--accent);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(125, 211, 192, 0.4);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background: var(--accent);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid rgba(125, 211, 192, 0.2);
+        }
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            letter-spacing: 0.3em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .footer-copy {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.1em;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 2rem; }
+            nav { display: none; }
+            .hero { min-height: 60vh; padding: 8rem 1.5rem 4rem; }
+            .scheme-grid { grid-template-columns: 1fr; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-container { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDESIGN</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="inhouse-cf.html">仕組み</a>
+                <a href="projects.html">プロジェクト</a>
+                <a href="business.html">事業内容</a>
+                <a href="news.html">お知らせ</a>
+                <a href="about.html">会社について</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <span class="hero-label">FINANCE SCHEME</span>
+        <h1>介護金融スキーム</h1>
+        <p>介護報酬を原資とした新しい金融スキーム。ファイナンスリースに依存しない次世代介護ファイナンスモデル。</p>
+    </section>
+
+    <!-- Scheme Overview -->
+    <section class="section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">OVERVIEW</div>
+                <h2 class="section-title">スキーム<span class="highlight">概要</span></h2>
+            </div>
+            <div class="scheme-grid">
+                <div class="scheme-card">
+                    <div class="scheme-icon">🏢</div>
+                    <h3>介護報酬の安定性</h3>
+                    <p>国保連からの支払いは確実。この安定収入を担保化</p>
+                </div>
+                <div class="scheme-card">
+                    <div class="scheme-icon">💰</div>
+                    <h3>金利0%の分割払い</h3>
+                    <p>メーカー直接取引により金利負担なしで設備導入</p>
+                </div>
+                <div class="scheme-card">
+                    <div class="scheme-icon">📊</div>
+                    <h3>キャッシュフロー改善</h3>
+                    <p>初期投資を抑え、運転資金を確保</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section class="comparison">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label" style="color: var(--accent);">COMPARISON</div>
+                <h2 class="section-title">従来 vs <span class="highlight">新スキーム</span></h2>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card old">
+                    <span class="comparison-label">従来モデル</span>
+                    <h3>ファイナンスリース</h3>
+                    <ul>
+                        <li>金利負担あり（3〜5%）</li>
+                        <li>リース会社への手数料</li>
+                        <li>審査に時間がかかる</li>
+                        <li>中途解約の制限</li>
+                    </ul>
+                </div>
+                <div class="comparison-card new">
+                    <span class="comparison-label">新スキーム</span>
+                    <h3>介護報酬担保型</h3>
+                    <ul>
+                        <li>金利0%での分割払い</li>
+                        <li>メーカーとの直接取引</li>
+                        <li>迅速な審査プロセス</li>
+                        <li>柔軟な支払いスケジュール</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credit Check -->
+    <section class="credit-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">CREDIT CHECK</div>
+                <h2 class="section-title">簡易与信<span class="highlight">審査</span></h2>
+            </div>
+            <div class="credit-form">
+                <form id="creditForm" onsubmit="return checkCredit(event)">
+                    <div class="form-step">
+                        <div class="form-step-title">STEP 01</div>
+                        <h4>法人情報</h4>
+                        <div class="form-group">
+                            <label class="form-label">法人形態</label>
+                            <select class="form-select" id="entityType" required>
+                                <option value="">選択してください</option>
+                                <option value="medical">医療法人</option>
+                                <option value="social">社会福祉法人</option>
+                                <option value="stock">株式会社</option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">設立年数</label>
+                                <select class="form-select" id="years" required>
+                                    <option value="">選択</option>
+                                    <option value="10">10年以上</option>
+                                    <option value="5">5〜10年</option>
+                                    <option value="3">3〜5年</option>
+                                    <option value="1">1〜3年</option>
+                                    <option value="0">1年未満</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">運営施設数</label>
+                                <select class="form-select" id="facilities" required>
+                                    <option value="">選択</option>
+                                    <option value="5">5施設以上</option>
+                                    <option value="3">3〜4施設</option>
+                                    <option value="2">2施設</option>
+                                    <option value="1">1施設</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-step">
+                        <div class="form-step-title">STEP 02</div>
+                        <h4>財務状況</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">年間売上（百万円）</label>
+                                <input type="number" class="form-input" id="revenue" placeholder="例: 500" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">経常利益率</label>
+                                <select class="form-select" id="profitRate" required>
+                                    <option value="">選択</option>
+                                    <option value="10">10%以上</option>
+                                    <option value="5">5〜10%</option>
+                                    <option value="3">3〜5%</option>
+                                    <option value="0">0〜3%</option>
+                                    <option value="-1">赤字</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">導入希望金額（万円）</label>
+                            <input type="number" class="form-input" id="amount" placeholder="例: 3000" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">簡易審査を実行</button>
+                </form>
+
+                <div class="result-box" id="resultBox">
+                    <h4>審査結果</h4>
+                    <div class="result-score" id="resultScore">85</div>
+                    <span class="result-rank" id="resultRank">A</span>
+                    <p id="resultMessage" style="margin-top: 1rem; color: var(--accent-light);"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>導入のご相談</h2>
+        <p>詳細なシミュレーションや個別のご相談を承ります</p>
+        <a href="contact.html" class="cta-btn">お問い合わせ</a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>COMPANY</h3>
+                <ul>
+                    <li><a href="about.html">会社について</a></li>
+                    <li><a href="about.html#philosophy">企業理念</a></li>
+                    <li><a href="about.html#company-info">会社概要</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SERVICES</h3>
+                <ul>
+                    <li><a href="inhouse-cf.html">In-house Planning CF</a></li>
+                    <li><a href="business.html">事業内容</a></li>
+                    <li><a href="projects.html">プロジェクト</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <ul>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="mailto:info@ganime.jp">info@ganime.jp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 GANIMEDESIGN Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function checkCredit(e) {
+            e.preventDefault();
+            
+            let score = 50;
+            
+            // 法人形態
+            const entityType = document.getElementById('entityType').value;
+            if (entityType === 'medical') score += 20;
+            else if (entityType === 'social') score += 15;
+            else if (entityType === 'stock') score += 10;
+            else score += 5;
+            
+            // 設立年数
+            const years = parseInt(document.getElementById('years').value);
+            score += years * 2;
+            
+            // 施設数
+            const facilities = parseInt(document.getElementById('facilities').value);
+            score += facilities * 3;
+            
+            // 経常利益率
+            const profitRate = parseInt(document.getElementById('profitRate').value);
+            if (profitRate >= 10) score += 15;
+            else if (profitRate >= 5) score += 10;
+            else if (profitRate >= 3) score += 5;
+            else if (profitRate >= 0) score += 0;
+            else score -= 10;
+            
+            // スコア上限
+            score = Math.min(Math.max(score, 0), 100);
+            
+            // ランク判定
+            let rank, message, rankClass;
+            if (score >= 80) {
+                rank = 'A';
+                rankClass = 'rank-A';
+                message = '導入可能性が高いと判定されました。詳細審査をお勧めします。';
+            } else if (score >= 60) {
+                rank = 'B';
+                rankClass = 'rank-B';
+                message = '条件付きで導入可能です。追加情報のご提供をお願いする場合があります。';
+            } else {
+                rank = 'C';
+                rankClass = 'rank-C';
+                message = '現時点では導入が難しい可能性があります。個別相談をお勧めします。';
+            }
+            
+            // 結果表示
+            const resultBox = document.getElementById('resultBox');
+            resultBox.className = 'result-box show ' + (score >= 60 ? 'success' : 'warning');
+            document.getElementById('resultScore').textContent = score;
+            document.getElementById('resultRank').textContent = rank;
+            document.getElementById('resultRank').className = 'result-rank ' + rankClass;
+            document.getElementById('resultMessage').textContent = message;
+            
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            return false;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外傷医療×訪問看護モデル | GANIMEDESIGN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7dd3c0;
+            --primary-dark: #5ec4ad;
+            --primary-darker: #4db8a5;
+            --accent: #4a3c2a;
+            --accent-light: #6b5a45;
+            --bg-light: #7dd3c0;
+            --bg-lighter: #8fe0d0;
+            --text-dark: #4a3c2a;
+            --text-light: #f5f5f3;
+            --warning: #e6a55a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8; 
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== Header ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            background: rgba(125, 211, 192, 0.95);
+            backdrop-filter: blur(20px);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            transition: opacity 0.3s;
+        }
+        .logo:hover { opacity: 0.7; }
+        nav { display: flex; gap: 3rem; }
+        nav a {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* ========== Hero ========== */
+        .hero {
+            min-height: 60vh;
+            background: var(--accent);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 5rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(125, 211, 192, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .hero-label::before,
+        .hero-label::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--primary);
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+        .hero-subtitle {
+            font-size: 1rem;
+            font-weight: 200;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+        }
+
+        /* ========== Main Container ========== */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section { margin-bottom: 5rem; }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        .section-title .icon {
+            font-size: 1.3rem;
+        }
+        .section-title h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--accent);
+        }
+
+        .card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(74, 60, 42, 0.08);
+        }
+
+        .highlight-box {
+            background: var(--accent);
+            color: var(--text-light);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .highlight-box h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+
+        /* Service List */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .service-item {
+            background: var(--bg-lighter);
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Problem Grid */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .problem-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--warning);
+            box-shadow: 0 4px 20px rgba(74, 60, 42, 0.08);
+        }
+        .problem-card h4 {
+            color: var(--warning);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .problem-card p {
+            color: var(--accent-light);
+            font-size: 0.9rem;
+        }
+
+        /* Structure Grid */
+        .structure-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        @media (max-width: 900px) { .structure-grid { grid-template-columns: 1fr; } }
+        .structure-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(74, 60, 42, 0.08);
+        }
+        .structure-card-header {
+            background: var(--primary-darker);
+            color: var(--accent);
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .structure-card-header h4 {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .structure-card-body {
+            padding: 1.5rem;
+        }
+        .structure-card-body ul { list-style: none; }
+        .structure-card-body li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(125, 211, 192, 0.2);
+            font-size: 0.9rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .structure-card-body li::before {
+            content: "•";
+            color: var(--primary-darker);
+            font-weight: bold;
+        }
+        .structure-card-body li:last-child { border-bottom: none; }
+
+        /* Case Grid */
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) { .case-grid { grid-template-columns: 1fr; } }
+        .case-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(74, 60, 42, 0.08);
+        }
+        .case-card h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .case-flow {
+            background: var(--bg-lighter);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        .case-flow p {
+            margin: 0.4rem 0;
+            font-size: 0.85rem;
+        }
+        .arrow {
+            color: var(--primary-darker);
+            font-weight: bold;
+        }
+
+        /* Two Column */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+        .do-list, .dont-list {
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .do-list { border: 2px solid var(--primary-dark); }
+        .dont-list { border: 2px solid var(--warning); }
+        .do-list h4 { color: var(--accent); margin-bottom: 1rem; }
+        .dont-list h4 { color: var(--warning); margin-bottom: 1rem; }
+        .do-list ul, .dont-list ul { list-style: none; }
+        .do-list li, .dont-list li { padding: 0.5rem 0; font-size: 0.9rem; }
+
+        /* Points Grid */
+        .points-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        @media (max-width: 768px) { .points-grid { grid-template-columns: repeat(2, 1fr); } }
+        .point-item {
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid var(--primary-dark);
+        }
+        .point-item .icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .point-item p {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Staff Table */
+        .staff-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .staff-table th, .staff-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(125, 211, 192, 0.2);
+        }
+        .staff-table th {
+            background: var(--primary-darker);
+            color: var(--accent);
+            font-weight: 500;
+        }
+        .staff-table tr:hover {
+            background: var(--bg-lighter);
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(230, 165, 90, 0.1);
+            border: 2px solid var(--warning);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .warning-box h4 {
+            color: var(--warning);
+            margin-bottom: 1rem;
+        }
+        .warning-box ul {
+            list-style: none;
+        }
+        .warning-box li {
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .pricing-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(74, 60, 42, 0.08);
+        }
+        .pricing-header {
+            background: var(--primary-darker);
+            color: var(--accent);
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .pricing-header h4 { font-size: 1rem; }
+        .pricing-header.orange {
+            background: linear-gradient(135deg, var(--warning) 0%, #d4944a 100%);
+            color: white;
+        }
+        .pricing-body { padding: 1.25rem; }
+        .pricing-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(125, 211, 192, 0.2);
+        }
+        .pricing-item:last-child { border-bottom: none; }
+        .pricing-item .label { color: var(--accent-light); font-size: 0.85rem; }
+        .pricing-item .value { font-weight: 500; color: var(--accent); font-size: 0.9rem; }
+
+        /* Calculator */
+        .calculator {
+            background: rgba(255,255,255,0.95);
+            border-radius: 8px;
+            padding: 2.5rem;
+            border: 2px solid var(--primary-dark);
+            box-shadow: 0 10px 40px rgba(74, 60, 42, 0.15);
+        }
+        .calculator-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .calculator-title h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .calculator-title p {
+            color: var(--accent-light);
+            font-size: 0.9rem;
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; } }
+        .calc-section {
+            background: var(--bg-lighter);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .calc-section h4 {
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .input-group { margin-bottom: 1rem; }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+        }
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(74, 60, 42, 0.2);
+            border-radius: 4px;
+            font-size: 1rem;
+            color: var(--accent);
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+        }
+        .input-row {
+            display: flex;
+            gap: 1rem;
+        }
+        .input-row .input-group { flex: 1; }
+        .calc-button {
+            display: block;
+            width: 100%;
+            padding: 1.2rem 2rem;
+            margin-top: 2rem;
+            background: var(--accent);
+            color: var(--text-light);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .calc-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(74, 60, 42, 0.2);
+        }
+
+        .result-box {
+            background: var(--accent);
+            color: var(--text-light);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .result-box h4 {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        .result-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+        }
+        .result-sub {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        @media (max-width: 768px) { .result-grid { grid-template-columns: 1fr; } }
+        .result-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        .result-item .label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+        .result-item .value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
+        .result-item.highlight {
+            background: rgba(125, 211, 192, 0.3);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background: var(--accent);
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.3em;
+            color: var(--text-light);
+        }
+        .footer-nav {
+            display: flex;
+            gap: 3rem;
+        }
+        .footer-nav a {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+        .footer-nav a:hover { color: var(--primary); }
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            text-align: center;
+        }
+        .footer-copy {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.1em;
+        }
+
+        /* ========== Mobile ========== */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 2rem; }
+            nav { display: none; }
+            .menu-toggle { display: flex; }
+            .hero { min-height: 50vh; padding: 8rem 1.5rem 4rem; }
+            .main-container { padding: 2rem 1rem; }
+            .footer-container { flex-direction: column; gap: 2rem; }
+            .footer-nav { flex-wrap: wrap; gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDESIGN</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="inhouse-cf.html">仕組み</a>
+                <a href="projects.html">プロジェクト</a>
+                <a href="business.html">事業内容</a>
+                <a href="news.html">お知らせ</a>
+                <a href="about.html">会社について</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <span class="hero-label">LIFE DESIGN</span>
+        <h1>外傷医療 × 訪問看護</h1>
+        <p class="hero-subtitle">看護師が外傷を管理する「在宅トラウマケア」モデル</p>
+    </section>
+
+    <main class="main-container">
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">🎯</span>
+                <h2>このモデルでできること</h2>
+            </div>
+            <div class="card">
+                <p style="margin-bottom: 1.5rem; color: var(--accent);">24時間対応型訪問看護を活用し、「外傷の初期対応・管理」を在宅で行うモデルです。</p>
+                <div class="service-grid">
+                    <div class="service-item">🩹 創傷処置・被覆管理</div>
+                    <div class="service-item">💧 洗浄・消毒</div>
+                    <div class="service-item">📋 経過観察・記録</div>
+                    <div class="service-item">🚑 救急搬送判断</div>
+                    <div class="service-item">📞 夜間緊急コール対応</div>
+                    <div class="service-item">👨‍⚕️ 医師への報告連携</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">⚠️</span>
+                <h2>なぜこのモデルが必要なのか</h2>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h4>救急外来の混雑</h4>
+                    <p>軽度外傷でも救急外来へ殺到し、本来必要な患者への対応が遅れる。</p>
+                </div>
+                <div class="problem-card">
+                    <h4>夜間対応の困難さ</h4>
+                    <p>夜間・休日の軽度外傷処置を受け入れる医療機関が少ない。</p>
+                </div>
+                <div class="problem-card">
+                    <h4>高齢者の転倒増加</h4>
+                    <p>在宅高齢者の転倒による外傷が増加し、継続的なケアが必要。</p>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h3>→「軽度外傷×訪問看護」で解決する</h3>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">■</span>
+                <h2>3つの収益構造</h2>
+            </div>
+            <div class="structure-grid">
+                <div class="structure-card">
+                    <div class="structure-card-header">
+                        <h4>(1) 通常訪問</h4>
+                    </div>
+                    <div class="structure-card-body">
+                        <ul>
+                            <li>定期訪問（週2〜3回）</li>
+                            <li>創傷管理・経過観察</li>
+                            <li>医療保険請求</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="structure-card">
+                    <div class="structure-card-header">
+                        <h4>(2) 緊急訪問</h4>
+                    </div>
+                    <div class="structure-card-body">
+                        <ul>
+                            <li>24時間対応体制</li>
+                            <li>緊急時加算取得</li>
+                            <li>夜間・深夜加算</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="structure-card">
+                    <div class="structure-card-header">
+                        <h4>(3) 自費サービス</h4>
+                    </div>
+                    <div class="structure-card-body">
+                        <ul>
+                            <li>保険外の処置対応</li>
+                            <li>リハビリ・美容ケア</li>
+                            <li>付添サービス</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">📊</span>
+                <h2>ケーススタディ</h2>
+            </div>
+            <div class="case-grid">
+                <div class="case-card">
+                    <h4>🦴 Case A：高齢者転倒（擦過傷・打撲）</h4>
+                    <div class="case-flow">
+                        <p><span class="arrow">①</span> 家族から緊急コール</p>
+                        <p><span class="arrow">②</span> 30分以内に訪問</p>
+                        <p><span class="arrow">③</span> 創部洗浄・被覆処置</p>
+                        <p><span class="arrow">④</span> 翌日フォロー訪問</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <h4>🔪 Case B：調理中の切創</h4>
+                    <div class="case-flow">
+                        <p><span class="arrow">①</span> 本人から電話相談</p>
+                        <p><span class="arrow">②</span> 出血状況をヒアリング</p>
+                        <p><span class="arrow">③</span> 圧迫止血指導→訪問判断</p>
+                        <p><span class="arrow">④</span> 必要時は医師連携</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">💰</span>
+                <h2>報酬体系</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h4>通常訪問看護</h4>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="pricing-item"><span class="label">30分未満</span><span class="value">¥4,700</span></div>
+                        <div class="pricing-item"><span class="label">30分〜1時間</span><span class="value">¥8,100</span></div>
+                        <div class="pricing-item"><span class="label">1時間以上</span><span class="value">¥11,200</span></div>
+                    </div>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header orange">
+                        <h4>緊急訪問加算</h4>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="pricing-item"><span class="label">緊急訪問加算</span><span class="value">+¥5,740</span></div>
+                        <div class="pricing-item"><span class="label">夜間加算</span><span class="value">+25%</span></div>
+                        <div class="pricing-item"><span class="label">深夜加算</span><span class="value">+50%</span></div>
+                    </div>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h4>自費サービス例</h4>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="pricing-item"><span class="label">外傷処置</span><span class="value">¥15,000〜</span></div>
+                        <div class="pricing-item"><span class="label">傷跡ケア</span><span class="value">¥10,000〜</span></div>
+                        <div class="pricing-item"><span class="label">付添サービス</span><span class="value">¥8,000/h</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">🧮</span>
+                <h2>月商シミュレーター</h2>
+            </div>
+            <div class="calculator">
+                <div class="calculator-title">
+                    <h3>収支シミュレーション</h3>
+                    <p>各パラメータを入力して月商を試算</p>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-section">
+                        <h4>👩‍⚕️ 基本設定</h4>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>看護師数</label>
+                                <input type="number" id="nurseCount" value="3" min="1">
+                            </div>
+                            <div class="input-group">
+                                <label>1日あたり訪問件数</label>
+                                <input type="number" id="visitsPerDay" value="5" min="1">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>訪問1件あたり単価（円）</label>
+                                <input type="number" id="pricePerVisit" value="8000" min="1000" step="500">
+                            </div>
+                            <div class="input-group">
+                                <label>月間稼働日数</label>
+                                <input type="number" id="workDays" value="22" min="1" max="31">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-section">
+                        <h4>🚨 緊急・自費設定</h4>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>月間緊急訪問件数</label>
+                                <input type="number" id="emergencyCount" value="10" min="0">
+                            </div>
+                            <div class="input-group">
+                                <label>緊急訪問 1件あたり単価（円）</label>
+                                <input type="number" id="emergencyPrice" value="15000" min="1000" step="1000">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>月間自費サービス件数</label>
+                                <input type="number" id="selfPayCount" value="5" min="0">
+                            </div>
+                            <div class="input-group">
+                                <label>自費サービス 1件あたり単価（円）</label>
+                                <input type="number" id="selfPayPrice" value="15000" min="1000" step="1000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="calc-section" style="margin-top: 1.5rem;">
+                    <h4>💰 経費設定</h4>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>人件費率（%）</label>
+                            <input type="number" id="laborCostRate" value="30" min="0" max="100">
+                        </div>
+                        <div class="input-group">
+                            <label>その他経費率（%）</label>
+                            <input type="number" id="otherCostRate" value="20" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+                <button class="calc-button" onclick="calculate()">📊 シミュレーション実行</button>
+                <div class="result-box">
+                    <h4>月商合計</h4>
+                    <div class="result-value" id="totalRevenue">¥0</div>
+                    <div class="result-sub" id="revenueBreakdown">通常: ¥0 + 緊急: ¥0 + 自費: ¥0</div>
+                    <div class="result-grid">
+                        <div class="result-item"><div class="label">通常訪問売上</div><div class="value" id="regularRevenue">¥0</div></div>
+                        <div class="result-item"><div class="label">緊急訪問売上</div><div class="value" id="emergencyRevenue">¥0</div></div>
+                        <div class="result-item"><div class="label">自費サービス売上</div><div class="value" id="selfPayRevenue">¥0</div></div>
+                    </div>
+                    <div class="result-grid" style="margin-top: 1rem;">
+                        <div class="result-item"><div class="label">人件費</div><div class="value" id="laborCost">¥0</div></div>
+                        <div class="result-item"><div class="label">その他経費</div><div class="value" id="otherCost">¥0</div></div>
+                        <div class="result-item highlight"><div class="label"><strong>営業利益</strong></div><div class="value" id="profit">¥0</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">🔄</span>
+                <h2>人員回転モデル</h2>
+            </div>
+            <div class="card">
+                <p style="margin-bottom: 1rem; color: var(--accent); font-weight: 500;">看護師3名で回す設計</p>
+                <table class="staff-table">
+                    <thead><tr><th>時間帯</th><th>担当</th></tr></thead>
+                    <tbody>
+                        <tr><td>日中</td><td>2名が訪問</td></tr>
+                        <tr><td>待機</td><td>1名オンコール</td></tr>
+                        <tr><td>夜間</td><td>管理者 or ローテ</td></tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--accent-light);">※常時24h対応を宣言しつつ、実稼働は少ない</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">👨‍⚕️</span>
+                <h2>医師を雇わない理由</h2>
+            </div>
+            <div class="two-col">
+                <div class="do-list">
+                    <h4>○ 医師はこう使う</h4>
+                    <ul>
+                        <li>指示書</li>
+                        <li>電話相談</li>
+                        <li>月数回のカンファ</li>
+                    </ul>
+                </div>
+                <div class="dont-list">
+                    <h4>✕ やらないこと</h4>
+                    <ul>
+                        <li>常勤医師</li>
+                        <li>在宅ER名乗り</li>
+                        <li>処置の現場立ち会い</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 2rem;">
+                <h3>👉 外傷"管理"に徹することで人件費を最小化</h3>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">📍</span>
+                <h2>このモデルが刺さる地域</h2>
+            </div>
+            <div class="points-grid">
+                <div class="point-item"><div class="icon">👴</div><p>高齢者が多い</p></div>
+                <div class="point-item"><div class="icon">🏥</div><p>整形外科・救急病院が多い</p></div>
+                <div class="point-item"><div class="icon">🚑</div><p>夜間救急が混んでる</p></div>
+                <div class="point-item"><div class="icon">🏠</div><p>戸建て比率が高い</p></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">
+                <span class="icon">⚖️</span>
+                <h2>行政＆指導対策</h2>
+            </div>
+            <div class="warning-box">
+                <h4>⚠️ コンプライアンス遵守事項</h4>
+                <ul>
+                    <li>「応急手当」ではなく「医師指示下の処置」として実施</li>
+                    <li>縫合・切開は絶対にやらない</li>
+                    <li>外傷初期は「観察＋清潔＋被覆管理」に限定</li>
+                    <li>記録は写真＋SOAP徹底</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>COMPANY</h3>
+                <ul>
+                    <li><a href="about.html">会社について</a></li>
+                    <li><a href="about.html#philosophy">企業理念</a></li>
+                    <li><a href="about.html#company-info">会社概要</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SERVICES</h3>
+                <ul>
+                    <li><a href="inhouse-cf.html">In-house Planning CF</a></li>
+                    <li><a href="business.html">事業内容</a></li>
+                    <li><a href="projects.html">プロジェクト</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <ul>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="mailto:info@ganime.jp">info@ganime.jp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 GANIMEDESIGN Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function formatNumber(num) {
+            return '¥' + num.toLocaleString('ja-JP');
+        }
+
+        function calculate() {
+            const nurseCount = parseInt(document.getElementById('nurseCount').value) || 0;
+            const visitsPerDay = parseInt(document.getElementById('visitsPerDay').value) || 0;
+            const pricePerVisit = parseInt(document.getElementById('pricePerVisit').value) || 0;
+            const workDays = parseInt(document.getElementById('workDays').value) || 0;
+            const emergencyCount = parseInt(document.getElementById('emergencyCount').value) || 0;
+            const emergencyPrice = parseInt(document.getElementById('emergencyPrice').value) || 0;
+            const selfPayCount = parseInt(document.getElementById('selfPayCount').value) || 0;
+            const selfPayPrice = parseInt(document.getElementById('selfPayPrice').value) || 0;
+            const laborCostRate = parseInt(document.getElementById('laborCostRate').value) || 0;
+            const otherCostRate = parseInt(document.getElementById('otherCostRate').value) || 0;
+
+            const regularRevenue = pricePerVisit * visitsPerDay * workDays;
+            const emergencyRevenue = emergencyCount * emergencyPrice;
+            const selfPayRevenue = selfPayCount * selfPayPrice;
+            const totalRevenue = regularRevenue + emergencyRevenue + selfPayRevenue;
+            const laborCost = Math.round(totalRevenue * (laborCostRate / 100));
+            const otherCost = Math.round(totalRevenue * (otherCostRate / 100));
+            const profit = totalRevenue - laborCost - otherCost;
+
+            document.getElementById('regularRevenue').textContent = formatNumber(regularRevenue);
+            document.getElementById('emergencyRevenue').textContent = formatNumber(emergencyRevenue);
+            document.getElementById('selfPayRevenue').textContent = formatNumber(selfPayRevenue);
+            document.getElementById('totalRevenue').textContent = formatNumber(totalRevenue);
+            document.getElementById('revenueBreakdown').textContent = '通常: ' + formatNumber(regularRevenue) + ' + 緊急: ' + formatNumber(emergencyRevenue) + ' + 自費: ' + formatNumber(selfPayRevenue);
+            document.getElementById('laborCost').textContent = formatNumber(laborCost);
+            document.getElementById('otherCost').textContent = formatNumber(otherCost);
+            document.getElementById('profit').textContent = formatNumber(profit);
+        }
+
+        // 初期計算
+        calculate();
+    </script>
+</body>
+</html>

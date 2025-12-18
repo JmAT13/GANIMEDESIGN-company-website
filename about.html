@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会社について | GANIMEDESIGN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a3c2a;
+            --primary-light: #6b5a45;
+            --primary-dark: #3d3225;
+            --accent: #7dd3c0;
+            --accent-dark: #5ec4ad;
+            --accent-darker: #4db8a5;
+            --bg-light: #7dd3c0;
+            --bg-dark: #5ec4ad;
+            --bg-white: #8fe0d0;
+            --text-dark: #4a3c2a;
+            --text-light: #f5f5f3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8; 
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .animate-on-scroll.animated { opacity: 1; transform: translateY(0); }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            transition: all 0.5s ease;
+        }
+        header.scrolled {
+            background: rgba(125, 211, 192, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4rem;
+            box-shadow: 0 4px 30px rgba(74, 60, 42, 0.1);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+        }
+        nav { display: flex; gap: 2.5rem; }
+        nav a {
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+        nav a.active { opacity: 1; }
+        nav a.active::after { width: 100%; }
+
+        /* Hero */
+        .hero {
+            min-height: 50vh;
+            background: linear-gradient(-45deg, #7dd3c0, #5ec4ad, #8fe0d0, #4db8a5);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 5rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            border: 1px solid rgba(74, 60, 42, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            opacity: 0.7;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        /* Section Common */
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--primary);
+        }
+
+        /* Philosophy Section */
+        .philosophy-section {
+            padding: 10rem 2rem;
+            background: var(--bg-white);
+        }
+        .philosophy-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .philosophy-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 400;
+            line-height: 2.2;
+            color: var(--primary);
+        }
+        .philosophy-text p {
+            margin-bottom: 2.5rem;
+        }
+        .philosophy-text .emphasis {
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* Process Section */
+        .process-section {
+            padding: 8rem 2rem;
+            background: var(--bg-dark);
+        }
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .process-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        .process-header .section-label {
+            justify-content: center;
+        }
+        .process-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .process-header p {
+            color: var(--primary);
+            opacity: 0.8;
+        }
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .process-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+        }
+        .process-step-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+        .process-step h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+        .process-step p {
+            font-size: 0.9rem;
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        /* Message Section */
+        .message-section {
+            padding: 10rem 2rem;
+            background: var(--bg-white);
+            position: relative;
+            overflow: hidden;
+        }
+        .message-section::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -20%;
+            width: 50%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(74, 60, 42, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .message-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .message-container .section-label {
+            justify-content: center;
+        }
+        .message-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 400;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .message-content {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+            line-height: 2.4;
+            color: var(--primary);
+            text-align: center;
+        }
+        .message-content p {
+            margin-bottom: 2rem;
+        }
+        .message-content .highlight {
+            font-weight: 500;
+            font-style: italic;
+        }
+        .message-signature {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        .message-signature span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            color: var(--primary);
+            opacity: 0.6;
+        }
+
+        /* Company Info Section */
+        .company-section {
+            padding: 6rem 2rem;
+            background: var(--bg-dark);
+        }
+        .company-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .company-container h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .company-table {
+            width: 100%;
+        }
+        .company-row {
+            display: flex;
+            border-bottom: 1px solid rgba(74, 60, 42, 0.15);
+            padding: 1.5rem 0;
+        }
+        .company-label {
+            min-width: 150px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+        .company-value {
+            flex: 1;
+            font-size: 0.95rem;
+            color: var(--primary);
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: var(--primary);
+            text-align: center;
+        }
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cta-container h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        .cta-container p {
+            color: var(--text-light);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 3rem;
+            background: var(--accent);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 5rem 2rem 2rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+        .footer-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        .footer-section ul { list-style: none; }
+        .footer-section li { margin-bottom: 0.5rem; }
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+        .footer-section a:hover { color: var(--accent); }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(125, 211, 192, 0.2);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 2rem; }
+            nav { display: none; }
+            .hero { padding: 8rem 1.5rem 4rem; min-height: 40vh; }
+            .process-steps { flex-direction: column; }
+            .company-row { flex-direction: column; gap: 0.5rem; }
+            .company-label { min-width: auto; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDESIGN</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="inhouse-cf.html">仕組み</a>
+                <a href="projects.html">プロジェクト</a>
+                <a href="business.html">事業内容</a>
+                <a href="news.html">お知らせ</a>
+                <a href="about.html" class="active">会社について</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <span class="hero-label">ABOUT</span>
+        <h1>会社について</h1>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="philosophy-section">
+        <div class="philosophy-container animate-on-scroll">
+            <div class="section-label">PHILOSOPHY</div>
+            <div class="philosophy-text">
+                <p>世界の問題は、<span class="emphasis">能力不足ではなく設計不良だ。</span></p>
+                <p>私たちは、正解を売らない。<br>構造をデザインする。</p>
+                <p>対象が何であれ、やることは同じ。<br><span class="emphasis">分解し、再設計し、実装する。</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process-section">
+        <div class="process-container">
+            <div class="process-header animate-on-scroll">
+                <div class="section-label">PROCESS</div>
+                <h2>すべて共通の設計思想</h2>
+                <p>対象が何であれ、同じ工程を踏む。</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">01</div>
+                    <h3>DEFINE</h3>
+                    <p>問題を定義する</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">02</div>
+                    <h3>BREAK</h3>
+                    <p>構造を分解する</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">03</div>
+                    <h3>DESIGN</h3>
+                    <p>再設計する</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">04</div>
+                    <h3>BUILD</h3>
+                    <p>実装する</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">05</div>
+                    <h3>SCALE</h3>
+                    <p>社会に流す</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message -->
+    <section class="message-section">
+        <div class="message-container animate-on-scroll">
+            <div class="section-label">MESSAGE</div>
+            <h2 class="message-title">GANIMEDESIGNという存在</h2>
+            <div class="message-content">
+                <p>私は、肩書きを捨ててきた。</p>
+                <p>医師でも、不動産でも、経営者でもない。<br><span class="highlight">ただの、設計者だ。</span></p>
+                <p>人・命・空間・仕組み・経済を<br>デザインによって再構築する。</p>
+                <p>それがGANIMEDESIGNの定義であり、<br>私たちの存在意義である。</p>
+            </div>
+            <div class="message-signature">
+                <span>— Founder, GANIMEDESIGN</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Info -->
+    <section class="company-section">
+        <div class="company-container">
+            <h2>会社概要</h2>
+            <div class="company-table">
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">会社名</div>
+                    <div class="company-value">GANIMEDESIGN株式会社</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">設立</div>
+                    <div class="company-value">2024年</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">代表</div>
+                    <div class="company-value">—</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">所在地</div>
+                    <div class="company-value">—</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">事業内容</div>
+                    <div class="company-value">空間設計 / 医療システム設計 / 金融構造設計 / ブランディング</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">メール</div>
+                    <div class="company-value"><a href="mailto:info@ganime.jp">info@ganime.jp</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>設計の相談窓口</h2>
+            <p>分野は問いません。<br>一緒に、設計しましょう。</p>
+            <a href="contact.html" class="cta-btn">お問い合わせ →</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>NAVIGATION</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="inhouse-cf.html">仕組み</a></li>
+                    <li><a href="projects.html">プロジェクト</a></li>
+                    <li><a href="business.html">事業内容</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>PROJECTS</h3>
+                <ul>
+                    <li><a href="project-life.html">Life Design</a></li>
+                    <li><a href="project-finance.html">Finance Structure</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="about.html">会社について</a></li>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <ul>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="mailto:info@ganime.jp">info@ganime.jp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 GANIMEDESIGN All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('animated');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
