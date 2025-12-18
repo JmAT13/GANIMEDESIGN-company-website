@@ -1039,45 +1039,45 @@
         // Project Map Popup
         const projectData = {
             heli: {
-                category: 'LIFE DESIGN',
-                title: 'ドクターヘリプロジェクト',
-                desc: '空からの救急医療で、命を守る時間を短縮します。',
+                category: 'HUMAN ECOSYSTEM',
+                title: 'Designed to Sustain Life',
+                desc: '生命を、持続させるための設計。自然、建築、医療、創造、コミュニティを統合し、人の一生を支える"生きたシステム"。',
                 link: 'projects.html'
             },
             emergency: {
                 category: 'LIFELINE CORE',
-                title: '救急・医療・物流・意思決定を一体化した次世代の命のインフラ',
+                title: '救急・医療・物流・意思決定を一体化した次世代の命のインフラです。',
                 desc: '地上と空をつなぎ、人とシステムを即時に接続し、「遅れない医療」を実現します。',
                 link: 'project-life.html'
             },
             mascot: {
-                category: 'BRAND DESIGN',
-                title: 'GANIMEキャラクタープロジェクト',
-                desc: '地域に愛されるマスコットキャラクターで、まちづくりを推進',
+                category: 'Make Imagination',
+                title: 'ただの工場ではないです',
+                desc: '想像を、生産するためのインフラです。',
                 link: 'projects.html'
             },
             ambulance: {
-                category: 'LIFE DESIGN',
-                title: '救急搬送最適化プロジェクト',
-                desc: '救急車の配置と搬送ルートを最適化し、救命率を向上',
+                category: 'Coming soon',
+                title: '',
+                desc: '',
                 link: 'projects.html'
             },
             finance: {
-                category: 'SYSTEM DESIGN',
-                title: '医療×金融プロジェクト',
-                desc: '医療と金融を融合した、新しい社会インフラの設計',
-                link: 'project-finance.html'
+                category: 'Coming soon',
+                title: '',
+                desc: '',
+                link: 'projects.html'
             },
             digital: {
-                category: 'SYSTEM DESIGN',
-                title: 'デジタルインフラプロジェクト',
-                desc: '都市全体をつなぐスマートシステムの構築',
+                category: 'RE:FORM',
+                title: 'Redesign Yourself',
+                desc: '人の印象と自信を設計するスタジオです。外見が変わると、行動が変わり、行動が変わると人生が変わります。',
                 link: 'projects.html'
             },
             care: {
-                category: 'SPACE DESIGN',
-                title: '介護村プロジェクト',
-                desc: '高齢者が安心して暮らせる、新しい介護コミュニティの構築',
+                category: 'SECOND LIFE CORE',
+                title: '住まい、医療、ケア、仕事、家族が自然につながる生活インフラです。',
+                desc: '支える場所ではなく、生き続けるための環境を設計します。',
                 link: 'project-life.html'
             }
         };
@@ -1093,8 +1093,11 @@
                 
                 document.getElementById('popupCategory').textContent = data.category;
                 document.getElementById('popupTitle').textContent = data.title;
+                document.getElementById('popupTitle').style.display = data.title ? 'block' : 'none';
                 document.getElementById('popupDesc').textContent = data.desc;
+                document.getElementById('popupDesc').style.display = data.desc ? 'block' : 'none';
                 document.getElementById('popupLink').href = data.link;
+                document.getElementById('popupLink').style.display = (data.title || data.desc) ? 'inline-flex' : 'none';
                 
                 popup.classList.add('active');
             });
