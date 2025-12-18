@@ -345,65 +345,152 @@
             text-align: center;
             margin-bottom: 4rem;
         }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+        
+        /* Project Map */
+        .project-map-wrapper {
+            position: relative;
             margin-bottom: 3rem;
         }
-        .project-card {
-            background: rgba(255, 255, 255, 0.3);
+        .project-map {
+            position: relative;
             border-radius: 20px;
             overflow: hidden;
-            transition: all 0.4s ease;
+            box-shadow: 0 20px 60px rgba(74, 60, 42, 0.2);
         }
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(74, 60, 42, 0.15);
+        .map-image {
+            width: 100%;
+            display: block;
         }
-        .project-image {
-            height: 220px;
-            background-size: cover;
-            background-position: center;
+        
+        /* Map Icons */
+        .map-icon {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 10;
+            transform: translate(-50%, -50%);
+        }
+        .icon-inner {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(74, 60, 42, 0.4);
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
+            z-index: 2;
         }
-        .project-status {
+        .map-icon:nth-child(2) .icon-inner { animation-delay: 0.5s; }
+        .map-icon:nth-child(3) .icon-inner { animation-delay: 1s; }
+        .map-icon:nth-child(4) .icon-inner { animation-delay: 1.5s; }
+        .map-icon:nth-child(5) .icon-inner { animation-delay: 2s; }
+        
+        .map-icon:hover .icon-inner {
+            transform: scale(1.2);
+            box-shadow: 0 8px 25px rgba(74, 60, 42, 0.5);
+        }
+        .icon-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-out infinite;
+            z-index: 1;
+        }
+        .map-icon:nth-child(2) .icon-pulse { animation-delay: 0.3s; }
+        .map-icon:nth-child(3) .icon-pulse { animation-delay: 0.6s; }
+        .map-icon:nth-child(4) .icon-pulse { animation-delay: 0.9s; }
+        .map-icon:nth-child(5) .icon-pulse { animation-delay: 1.2s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+        }
+        
+        /* Project Popup */
+        .project-popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            width: 320px;
+            box-shadow: 0 20px 60px rgba(74, 60, 42, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        .project-popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .popup-close {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            padding: 0.4rem 1rem;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            border-radius: 50px;
-            background: var(--primary);
-            color: var(--text-light);
-        }
-        .project-status.planning {
-            background: var(--accent-dark);
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: var(--bg-light);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
             color: var(--primary);
+            transition: background 0.3s;
         }
-        .project-content {
-            padding: 2rem;
+        .popup-close:hover {
+            background: var(--accent);
         }
-        .project-category {
+        .popup-category {
             font-size: 0.7rem;
             letter-spacing: 0.15em;
-            color: var(--primary);
-            opacity: 0.6;
+            color: var(--accent-dark);
             margin-bottom: 0.5rem;
         }
-        .project-title {
+        .popup-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--primary);
             margin-bottom: 0.75rem;
         }
-        .project-desc {
+        .popup-desc {
             font-size: 0.85rem;
             color: var(--primary);
             opacity: 0.7;
             line-height: 1.8;
+            margin-bottom: 1.5rem;
         }
+        .popup-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+            transition: gap 0.3s;
+        }
+        .popup-link:hover {
+            gap: 1rem;
+        }
+        
         .section-footer {
             text-align: center;
         }
@@ -619,8 +706,10 @@
             .cf-arrow { font-size: 1rem; }
             .cf-buttons { flex-direction: column; }
 
-            .projects-grid { grid-template-columns: 1fr; }
-            .project-image { height: 180px; }
+            .map-icon { width: 45px; height: 45px; }
+            .icon-inner { width: 35px; height: 35px; font-size: 1rem; }
+            .icon-pulse { width: 35px; height: 35px; }
+            .project-popup { width: 280px; padding: 1.5rem; }
 
             .business-grid { grid-template-columns: 1fr; }
 
@@ -683,11 +772,10 @@
     <!-- In-house CF Section -->
     <section class="cf-section">
         <div class="cf-container animate-on-scroll">
-            <span class="section-label">IN-HOUSE PLANNING CLOUD FUNDING</span>
-            <h2 class="section-title">自社企画型クラウドファンディング</h2>
+            <span class="section-label">DESIGNED BY US, FUNDED BY THE WORLD</span>
+            <h2 class="section-title">私たちが設計し、世界が支える</h2>
             <p class="section-desc">
-                私たちは「自社で企画し、自ら資金を集め、実行する」独自のモデルを構築しました。<br>
-                構想から社会実装まで、すべてを一貫して手がけます。
+                私たちは、構想と設計を担い、世界中の資本とともに社会実装を行います。
             </p>
             <div class="cf-flow">
                 <div class="cf-step">
@@ -729,27 +817,41 @@
                 <span class="section-label">PROJECTS</span>
                 <h2 class="section-title">プロジェクト</h2>
             </div>
-            <div class="projects-grid">
-                <a href="project-life.html" class="project-card animate-on-scroll">
-                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600');">
-                        <span class="project-status">進行中</span>
+            <div class="project-map-wrapper">
+                <div class="project-map">
+                    <img src="future-city-image.png" alt="Future City Map" class="map-image">
+                    
+                    <!-- Project Icons -->
+                    <div class="map-icon" data-project="emergency" style="top: 25%; left: 45%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">🏥</div>
                     </div>
-                    <div class="project-content">
-                        <span class="project-category">LIFE DESIGN</span>
-                        <h3 class="project-title">介護村プロジェクト</h3>
-                        <p class="project-desc">高齢者が安心して暮らせる、新しい介護コミュニティの構築</p>
+                    <div class="map-icon" data-project="care" style="top: 65%; left: 70%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">🏘️</div>
                     </div>
-                </a>
-                <a href="project-finance.html" class="project-card animate-on-scroll">
-                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600');">
-                        <span class="project-status">進行中</span>
+                    <div class="map-icon" data-project="finance" style="top: 50%; left: 25%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">💰</div>
                     </div>
-                    <div class="project-content">
-                        <span class="project-category">SYSTEM DESIGN</span>
-                        <h3 class="project-title">医療×金融プロジェクト</h3>
-                        <p class="project-desc">医療と金融を融合した、新しい社会インフラの設計</p>
+                    <div class="map-icon" data-project="energy" style="top: 35%; left: 80%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">🌱</div>
                     </div>
-                </a>
+                    <div class="map-icon" data-project="transport" style="top: 70%; left: 35%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">🚁</div>
+                    </div>
+                </div>
+                
+                <!-- Project Popup -->
+                <div class="project-popup" id="projectPopup">
+                    <button class="popup-close" onclick="closePopup()">×</button>
+                    <div class="popup-category" id="popupCategory">LIFE DESIGN</div>
+                    <h3 class="popup-title" id="popupTitle">介護村プロジェクト</h3>
+                    <p class="popup-desc" id="popupDesc">高齢者が安心して暮らせる、新しい介護コミュニティの構築</p>
+                    <a href="#" class="popup-link" id="popupLink">詳しく見る →</a>
+                </div>
             </div>
             <div class="section-footer animate-on-scroll">
                 <a href="projects.html" class="btn btn-secondary">すべてのプロジェクト →</a>
@@ -765,7 +867,7 @@
                 <h2 class="section-title">事業内容</h2>
             </div>
             <div class="business-grid">
-                <a href="business.html#space" class="business-card animate-on-scroll">
+                <a href="works.html" class="business-card animate-on-scroll">
                     <div class="business-number">01</div>
                     <h3 class="business-title">Space Design</h3>
                     <p class="business-subtitle">空間をデザインする</p>
@@ -851,8 +953,6 @@
                 <h3>COMPANY</h3>
                 <ul>
                     <li><a href="about.html">会社について</a></li>
-                    <li><a href="about.html#philosophy">企業理念</a></li>
-                    <li><a href="about.html#company-info">会社概要</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -899,6 +999,69 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Project Map Popup
+        const projectData = {
+            emergency: {
+                category: 'LIFE DESIGN',
+                title: '救急医療プロジェクト',
+                desc: '極限環境下で最適な判断を可能にする救急医療体制の設計',
+                link: 'project-life.html'
+            },
+            care: {
+                category: 'SPACE DESIGN',
+                title: '介護村プロジェクト',
+                desc: '高齢者が安心して暮らせる、新しい介護コミュニティの構築',
+                link: 'project-life.html'
+            },
+            finance: {
+                category: 'SYSTEM DESIGN',
+                title: '医療×金融プロジェクト',
+                desc: '医療と金融を融合した、新しい社会インフラの設計',
+                link: 'project-finance.html'
+            },
+            energy: {
+                category: 'SYSTEM DESIGN',
+                title: '再生エネルギープロジェクト',
+                desc: '持続可能な地域エネルギーシステムの構築',
+                link: 'projects.html'
+            },
+            transport: {
+                category: 'SPACE DESIGN',
+                title: 'モビリティプロジェクト',
+                desc: '地域を結ぶ次世代交通インフラの設計',
+                link: 'projects.html'
+            }
+        };
+
+        const popup = document.getElementById('projectPopup');
+        const mapIcons = document.querySelectorAll('.map-icon');
+
+        mapIcons.forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const projectId = icon.dataset.project;
+                const data = projectData[projectId];
+                
+                document.getElementById('popupCategory').textContent = data.category;
+                document.getElementById('popupTitle').textContent = data.title;
+                document.getElementById('popupDesc').textContent = data.desc;
+                document.getElementById('popupLink').href = data.link;
+                
+                popup.classList.add('active');
+            });
+        });
+
+        function closePopup() {
+            popup.classList.remove('active');
+        }
+
+        // Close popup when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!popup.contains(e.target) && !e.target.closest('.map-icon')) {
+                closePopup();
+            }
+        });
     </script>
 </body>
 </html>
