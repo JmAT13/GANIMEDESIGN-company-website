@@ -372,37 +372,40 @@
             transform: translate(-50%, -50%);
         }
         .icon-inner {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffec8b 50%, #ffd700 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(74, 60, 42, 0.4);
-            animation: float 3s ease-in-out infinite;
+            font-size: 1.4rem;
+            color: #b8860b;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
             z-index: 2;
+            border: 2px solid rgba(255, 255, 255, 0.6);
         }
         .map-icon:nth-child(2) .icon-inner { animation-delay: 0.5s; }
         .map-icon:nth-child(3) .icon-inner { animation-delay: 1s; }
         .map-icon:nth-child(4) .icon-inner { animation-delay: 1.5s; }
         .map-icon:nth-child(5) .icon-inner { animation-delay: 2s; }
+        .map-icon:nth-child(6) .icon-inner { animation-delay: 2.5s; }
         
         .map-icon:hover .icon-inner {
-            transform: scale(1.2);
-            box-shadow: 0 8px 25px rgba(74, 60, 42, 0.5);
+            transform: scale(1.3);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.6), 0 8px 25px rgba(0, 0, 0, 0.4);
         }
         .icon-pulse {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            background: var(--accent);
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 215, 0, 0.5);
             border-radius: 50%;
             animation: pulse 2s ease-out infinite;
             z-index: 1;
@@ -411,84 +414,107 @@
         .map-icon:nth-child(3) .icon-pulse { animation-delay: 0.6s; }
         .map-icon:nth-child(4) .icon-pulse { animation-delay: 0.9s; }
         .map-icon:nth-child(5) .icon-pulse { animation-delay: 1.2s; }
+        .map-icon:nth-child(6) .icon-pulse { animation-delay: 1.5s; }
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.3); }
         }
         @keyframes pulse {
             0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
             100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
         }
         
-        /* Project Popup */
+        /* Project Popup - Yellow Memo Style */
         .project-popup {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            width: 320px;
-            box-shadow: 0 20px 60px rgba(74, 60, 42, 0.3);
+            top: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%) scale(0.9) rotate(-2deg);
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            border-radius: 4px;
+            padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+            width: 280px;
+            box-shadow: 
+                3px 3px 10px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 100;
+            border-left: 4px solid #ffd54f;
+        }
+        .project-popup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 25px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, transparent 100%);
+            border-radius: 4px 4px 0 0;
         }
         .project-popup.active {
             opacity: 1;
             visibility: visible;
-            transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1) rotate(-1deg);
         }
         .popup-close {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 30px;
-            height: 30px;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 24px;
+            height: 24px;
             border: none;
-            background: var(--bg-light);
+            background: rgba(0,0,0,0.1);
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1rem;
             cursor: pointer;
-            color: var(--primary);
+            color: #5d4037;
             transition: background 0.3s;
+            line-height: 1;
         }
         .popup-close:hover {
-            background: var(--accent);
+            background: rgba(0,0,0,0.2);
         }
         .popup-category {
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            color: var(--accent-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #5d4037;
             margin-bottom: 0.5rem;
+            text-transform: uppercase;
         }
         .popup-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            color: var(--primary);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #3e2723;
             margin-bottom: 0.75rem;
+            line-height: 1.5;
         }
         .popup-desc {
             font-size: 0.85rem;
-            color: var(--primary);
-            opacity: 0.7;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
+            color: #5d4037;
+            line-height: 1.7;
+            margin-bottom: 1rem;
         }
         .popup-link {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             font-size: 0.85rem;
-            color: var(--primary);
+            color: #5d4037;
             font-weight: 500;
-            transition: gap 0.3s;
+            transition: gap 0.3s, color 0.3s;
         }
         .popup-link:hover {
             gap: 1rem;
+            color: #3e2723;
         }
         
         .section-footer {
@@ -822,25 +848,29 @@
                     <img src="future-city-image.png" alt="Future City Map" class="map-image">
                     
                     <!-- Project Icons -->
-                    <div class="map-icon" data-project="emergency" style="top: 25%; left: 45%;">
+                    <div class="map-icon" data-project="lifeline" style="top: 18%; left: 8%;">
                         <div class="icon-pulse"></div>
-                        <div class="icon-inner">🏥</div>
+                        <div class="icon-inner">★</div>
                     </div>
-                    <div class="map-icon" data-project="care" style="top: 65%; left: 70%;">
+                    <div class="map-icon" data-project="digital" style="top: 25%; left: 48%;">
                         <div class="icon-pulse"></div>
-                        <div class="icon-inner">🏘️</div>
+                        <div class="icon-inner">★</div>
                     </div>
-                    <div class="map-icon" data-project="finance" style="top: 50%; left: 25%;">
+                    <div class="map-icon" data-project="mobility" style="top: 22%; left: 78%;">
                         <div class="icon-pulse"></div>
-                        <div class="icon-inner">💰</div>
+                        <div class="icon-inner">★</div>
                     </div>
-                    <div class="map-icon" data-project="energy" style="top: 35%; left: 80%;">
+                    <div class="map-icon" data-project="finance" style="top: 42%; left: 28%;">
                         <div class="icon-pulse"></div>
-                        <div class="icon-inner">🌱</div>
+                        <div class="icon-inner">★</div>
                     </div>
-                    <div class="map-icon" data-project="transport" style="top: 70%; left: 35%;">
+                    <div class="map-icon" data-project="transport" style="top: 68%; left: 38%;">
                         <div class="icon-pulse"></div>
-                        <div class="icon-inner">🚁</div>
+                        <div class="icon-inner">★</div>
+                    </div>
+                    <div class="map-icon" data-project="care" style="top: 58%; left: 70%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">★</div>
                     </div>
                 </div>
                 
@@ -1002,17 +1032,23 @@
 
         // Project Map Popup
         const projectData = {
-            emergency: {
-                category: 'LIFE DESIGN',
-                title: '救急医療プロジェクト',
-                desc: '極限環境下で最適な判断を可能にする救急医療体制の設計',
+            lifeline: {
+                category: 'LIFELINE CORE',
+                title: '救急・医療・物流・意思決定を一体化した次世代の命のインフラ',
+                desc: '地上と空をつなぎ、人とシステムを即時に接続し、「遅れない医療」を実現します。',
                 link: 'project-life.html'
             },
-            care: {
+            digital: {
+                category: 'SYSTEM DESIGN',
+                title: 'デジタルインフラプロジェクト',
+                desc: '都市全体をつなぐスマートシステムの構築',
+                link: 'projects.html'
+            },
+            mobility: {
                 category: 'SPACE DESIGN',
-                title: '介護村プロジェクト',
-                desc: '高齢者が安心して暮らせる、新しい介護コミュニティの構築',
-                link: 'project-life.html'
+                title: '次世代モビリティプロジェクト',
+                desc: '鉄道・自動運転・航空を統合した移動革命',
+                link: 'projects.html'
             },
             finance: {
                 category: 'SYSTEM DESIGN',
@@ -1020,17 +1056,17 @@
                 desc: '医療と金融を融合した、新しい社会インフラの設計',
                 link: 'project-finance.html'
             },
-            energy: {
-                category: 'SYSTEM DESIGN',
-                title: '再生エネルギープロジェクト',
-                desc: '持続可能な地域エネルギーシステムの構築',
+            transport: {
+                category: 'LIFE DESIGN',
+                title: 'ドクターヘリプロジェクト',
+                desc: '空からの救急医療で、命を守る時間を短縮',
                 link: 'projects.html'
             },
-            transport: {
+            care: {
                 category: 'SPACE DESIGN',
-                title: 'モビリティプロジェクト',
-                desc: '地域を結ぶ次世代交通インフラの設計',
-                link: 'projects.html'
+                title: '介護村プロジェクト',
+                desc: '高齢者が安心して暮らせる、新しい介護コミュニティの構築',
+                link: 'project-life.html'
             }
         };
 
