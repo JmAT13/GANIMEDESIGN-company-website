@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>施工事例 | GANIMEDESIGN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a3c2a;
+            --primary-light: #6b5a45;
+            --primary-dark: #3d3225;
+            --accent: #7dd3c0;
+            --accent-dark: #5ec4ad;
+            --accent-darker: #4db8a5;
+            --bg-light: #7dd3c0;
+            --bg-dark: #5ec4ad;
+            --bg-white: #8fe0d0;
+            --text-dark: #4a3c2a;
+            --text-light: #f5f5f3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8; 
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .animate-on-scroll.animated { opacity: 1; transform: translateY(0); }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            transition: all 0.5s ease;
+        }
+        header.scrolled {
+            background: rgba(125, 211, 192, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4rem;
+            box-shadow: 0 4px 30px rgba(74, 60, 42, 0.1);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+        }
+        nav { display: flex; gap: 2.5rem; }
+        nav a {
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+        nav a.active { opacity: 1; }
+        nav a.active::after { width: 100%; }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .menu-toggle span {
+            width: 28px;
+            height: 1px;
+            background: var(--primary);
+            transition: all 0.3s;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-light);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a {
+            font-size: 1.2rem;
+            color: var(--primary);
+            letter-spacing: 0.2em;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 50vh;
+            background: linear-gradient(-45deg, #7dd3c0, #5ec4ad, #8fe0d0, #4db8a5);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 5rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            border: 1px solid rgba(74, 60, 42, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--primary);
+            opacity: 0.7;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+            margin-bottom: 1rem;
+        }
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--primary);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        /* Stats */
+        .stats-section {
+            background: var(--primary);
+            padding: 3rem 2rem;
+        }
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+        .stat-item {
+            color: var(--text-light);
+        }
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .stat-number span {
+            font-size: 1.5rem;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            letter-spacing: 0.1em;
+        }
+
+        /* Filter */
+        .filter-section {
+            padding: 3rem 2rem;
+            background: var(--bg-white);
+        }
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.75rem 2rem;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 50px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: var(--text-light);
+        }
+
+        /* Works Grid */
+        .works-section {
+            padding: 4rem 2rem 8rem;
+            background: var(--bg-white);
+        }
+        .works-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .work-card {
+            position: relative;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background: var(--primary);
+            cursor: pointer;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+        .work-card:hover {
+            transform: translateY(-8px);
+        }
+        .work-card.hidden {
+            display: none;
+        }
+        .work-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            transition: all 0.5s ease;
+        }
+        .work-image-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.3;
+        }
+        .work-card:hover .work-image {
+            opacity: 0.7;
+        }
+        .work-overlay {
+            position: absolute;
+            inset: 0;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: linear-gradient(to top, rgba(74, 60, 42, 0.95) 0%, rgba(74, 60, 42, 0.5) 50%, transparent 100%);
+        }
+        .work-category {
+            display: inline-block;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            background: rgba(125, 211, 192, 0.15);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            margin-bottom: 0.75rem;
+            width: fit-content;
+        }
+        .work-title {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        .work-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+        .work-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(74, 60, 42, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal.active {
+            display: block;
+        }
+        .modal-content {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+        .modal-close {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+            z-index: 2001;
+        }
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+        .modal-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-image-icon {
+            font-size: 5rem;
+            color: var(--accent);
+            opacity: 0.3;
+        }
+        .modal-category {
+            display: inline-block;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            background: rgba(125, 211, 192, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+        .modal-title {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        .modal-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        .modal-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .modal-info-label {
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+        }
+        .modal-info-value {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+        .modal-desc {
+            color: var(--text-light);
+            opacity: 0.9;
+            line-height: 2;
+            font-size: 0.95rem;
+        }
+        .modal-desc p {
+            margin-bottom: 1rem;
+        }
+        .modal-features {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(125, 211, 192, 0.2);
+        }
+        .modal-features h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+        .modal-features ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        .modal-features li {
+            color: var(--text-light);
+            opacity: 0.8;
+            font-size: 0.9rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .modal-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: var(--primary);
+            text-align: center;
+        }
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cta-container h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        .cta-container p {
+            color: var(--text-light);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 3rem;
+            background: var(--accent);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 5rem 2rem 2rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+        .footer-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        .footer-section ul { list-style: none; }
+        .footer-section li { margin-bottom: 0.5rem; }
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+        .footer-section a:hover { color: var(--accent); }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(125, 211, 192, 0.2);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 1024px) {
+            .works-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-container { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1.5rem 2rem; }
+            nav { display: none; }
+            .menu-toggle { display: flex; }
+            .hero { padding: 8rem 1.5rem 4rem; min-height: 40vh; }
+            .works-grid { grid-template-columns: 1fr; }
+            .stats-container { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .stat-number { font-size: 2.5rem; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .modal-content { margin: 2rem 1rem; padding: 1.5rem; }
+            .modal-close { top: 1rem; right: 1rem; width: 40px; height: 40px; }
+            .modal-info { grid-template-columns: 1fr; }
+            .modal-features ul { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDESIGN</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="inhouse-cf.html">仕組み</a>
+                <a href="projects.html">プロジェクト</a>
+                <a href="business.html">事業内容</a>
+                <a href="news.html">お知らせ</a>
+                <a href="about.html">会社について</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">HOME</a>
+        <a href="inhouse-cf.html">仕組み</a>
+        <a href="projects.html">プロジェクト</a>
+        <a href="business.html">事業内容</a>
+        <a href="news.html">お知らせ</a>
+        <a href="about.html">会社について</a>
+        <a href="contact.html">お問い合わせ</a>
+    </div>
+
+    <section class="hero">
+        <span class="hero-label">WORKS</span>
+        <h1>施工事例</h1>
+        <p class="hero-desc">空間デザインの実績をご紹介</p>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">150<span>+</span></div>
+                <div class="stat-label">施工実績</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98<span>%</span></div>
+                <div class="stat-label">顧客満足度</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15<span>年</span></div>
+                <div class="stat-label">業界経験</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">30<span>+</span></div>
+                <div class="stat-label">専門スタッフ</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">すべて</button>
+            <button class="filter-btn" data-filter="medical">医療施設</button>
+            <button class="filter-btn" data-filter="care">介護施設</button>
+            <button class="filter-btn" data-filter="commercial">商業施設</button>
+            <button class="filter-btn" data-filter="residence">住宅・その他</button>
+        </div>
+    </section>
+
+    <section class="works-section">
+        <div class="works-container">
+            <div class="works-grid">
+                <!-- 医療施設 -->
+                <div class="work-card animate-on-scroll" data-category="medical" data-work="1">
+                    <div class="work-image">
+                        <span class="work-image-icon">🏥</span>
+                    </div>
+                    <div class="work-overlay">
+                        <span class="work-category">医療施設</span>
+                        <h3 class="work-title">○○総合病院 外来棟リノベーション</h3>
+                        <div class="work-meta">
+                            <span>📍 東京都</span>
+                            <span>📅 2024年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-card animate-on-scroll" data-category="medical" data-work="2">
+                    <div class="work-image">
+                        <span class="work-image-icon">🏥</span>
+                    </div>
+                    <div class="work-overlay">
+                        <span class="work-category">医療施設</span>
+                        <h3 class="work-title">△△クリニック 新築工事</h3>
+                        <div class="work-meta">
+                            <span>📍 神奈川県</span>
+                            <span>📅 2024年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 介護施設 -->
+                <div class="work-card animate-on-scroll" data-category="care" data-work="3">
+                    <div class="work-image">
+                        <span class="work-image-icon">🏠</span>
+                    </div>
+                    <div class="work-overlay">
+                        <span class="work-category">介護施設</span>
+                        <h3 class="work-title">特別養護老人ホーム □□苑 新築工事</h3>
+                        <div class="work-meta">
+                            <span>📍 埼玉県</span>
+                            <span>📅 2024年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-card animate-on-scroll" data-category="care" data-work="4">
+                    <div class="work-image">
+                        <span class="work-image-icon">🏠</span>
+                    </div>
+                    <div class="work-overlay">
+                        <span class="work-category">介護施設</span>
+                        <h3 class="work-title">グループホーム ◇◇ 内装改修</h3>
+                        <div class="work-meta">
+                            <span>📍 千葉県</span>
+                            <span>📅 2023年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-card animate-on-scroll" data-category="care" data-work="5">
+                    <div class="work-image">
+                        <span class="work-image-icon">🏠</span>
+                    </div>
+                    <div class="work-overlay">
+                        <span class="work-category">介護施設</span>
+                        <h3 class="work-title">訪問看護ステーション ☆☆ 開設工事</h3>
+                        <div class="work-meta">
+                            <span>📍 東京都</span>
+                            <span>📅 2023年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商業施設 -->
+                <div class="work-card animate-on-scroll" data-category="commercial" data-work="6">
+                    <div class="work-image">
+                        <span class="work-image-icon">🏪</span>
+                    </div>
+                    <div class="work-overlay">
+                        <span class="work-category">商業施設</span>
+                        <h3 class="work-title">複合商業施設 ▽▽モール テナント内装</h3>
+                        <div class="work-meta">
+                            <span>📍 神奈川県</span>
+                            <span>📅 2024年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-card animate-on-scroll" data-category="commercial" data-work="7">
+                    <div class="work-image">
+                        <span class="work-image-icon">🏪</span>
+                    </div>
+                    <div class="work-overlay">
+                        <span class="work-category">商業施設</span>
+                        <h3 class="work-title">オフィスビル ○×ビル リノベーション</h3>
+                        <div class="work-meta">
+                            <span>📍 東京都</span>
+                            <span>📅 2023年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 住宅・その他 -->
+                <div class="work-card animate-on-scroll" data-category="residence" data-work="8">
+                    <div class="work-image">
+                        <span class="work-image-icon">🏡</span>
+                    </div>
+                    <div class="work-overlay">
+                        <span class="work-category">住宅・その他</span>
+                        <h3 class="work-title">バリアフリー住宅 S邸 新築工事</h3>
+                        <div class="work-meta">
+                            <span>📍 東京都</span>
+                            <span>📅 2024年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-card animate-on-scroll" data-category="residence" data-work="9">
+                    <div class="work-image">
+                        <span class="work-image-icon">🏡</span>
+                    </div>
+                    <div class="work-overlay">
+                        <span class="work-category">住宅・その他</span>
+                        <h3 class="work-title">シェアハウス ◎◎ハウス コンバージョン</h3>
+                        <div class="work-meta">
+                            <span>📍 埼玉県</span>
+                            <span>📅 2023年</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="workModal">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-content">
+            <div class="modal-image">
+                <span class="modal-image-icon" id="modalIcon">🏥</span>
+            </div>
+            <span class="modal-category" id="modalCategory">医療施設</span>
+            <h2 class="modal-title" id="modalTitle">○○総合病院 外来棟リノベーション</h2>
+            <div class="modal-info">
+                <div class="modal-info-item">
+                    <span class="modal-info-label">所在地</span>
+                    <span class="modal-info-value" id="modalLocation">東京都○○区</span>
+                </div>
+                <div class="modal-info-item">
+                    <span class="modal-info-label">竣工年月</span>
+                    <span class="modal-info-value" id="modalDate">2024年3月</span>
+                </div>
+                <div class="modal-info-item">
+                    <span class="modal-info-label">延床面積</span>
+                    <span class="modal-info-value" id="modalArea">1,500㎡</span>
+                </div>
+                <div class="modal-info-item">
+                    <span class="modal-info-label">構造・規模</span>
+                    <span class="modal-info-value" id="modalStructure">RC造・3階建</span>
+                </div>
+            </div>
+            <div class="modal-desc" id="modalDesc">
+                <p>患者様と医療スタッフ双方の動線を最適化し、効率的かつ温かみのある空間を実現しました。</p>
+                <p>自然光を最大限に取り入れた設計により、待合スペースの快適性を向上。また、感染対策を考慮した換気システムと素材選定を行いました。</p>
+            </div>
+            <div class="modal-features">
+                <h4>FEATURES</h4>
+                <ul id="modalFeatures">
+                    <li>ユニバーサルデザイン対応</li>
+                    <li>省エネルギー設計</li>
+                    <li>自然光活用設計</li>
+                    <li>感染対策換気システム</li>
+                    <li>抗菌素材の採用</li>
+                    <li>サイン計画の最適化</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>プロジェクトのご相談</h2>
+            <p>施設の新築・リノベーションをお考えの方は、<br>お気軽にご相談ください。</p>
+            <a href="contact.html" class="cta-btn">お問い合わせ →</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>MENU</h3>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="inhouse-cf.html">仕組み</a></li>
+                    <li><a href="projects.html">プロジェクト</a></li>
+                    <li><a href="business.html">事業内容</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>COMPANY</h3>
+                <ul>
+                    <li><a href="about.html">会社について</a></li>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="works.html">施工事例</a></li>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SERVICES</h3>
+                <ul>
+                    <li><a href="service-vision.html">空間デザイン</a></li>
+                    <li><a href="service-visitnurse.html">訪問看護支援</a></li>
+                    <li><a href="service-emergency.html">救急設計</a></li>
+                    <li><a href="service-trauma.html">トラウマケア</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>LEGAL</h3>
+                <ul>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 GANIMEDESIGN Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Works data
+        const worksData = {
+            1: {
+                icon: '🏥',
+                category: '医療施設',
+                title: '○○総合病院 外来棟リノベーション',
+                location: '東京都○○区',
+                date: '2024年3月',
+                area: '1,500㎡',
+                structure: 'RC造・3階建',
+                desc: '<p>患者様と医療スタッフ双方の動線を最適化し、効率的かつ温かみのある空間を実現しました。</p><p>自然光を最大限に取り入れた設計により、待合スペースの快適性を向上。また、感染対策を考慮した換気システムと素材選定を行いました。</p>',
+                features: ['ユニバーサルデザイン対応', '省エネルギー設計', '自然光活用設計', '感染対策換気システム', '抗菌素材の採用', 'サイン計画の最適化']
+            },
+            2: {
+                icon: '🏥',
+                category: '医療施設',
+                title: '△△クリニック 新築工事',
+                location: '神奈川県○○市',
+                date: '2024年1月',
+                area: '350㎡',
+                structure: 'S造・2階建',
+                desc: '<p>地域に根ざしたかかりつけ医を目指すクリニックの新築工事を担当。</p><p>患者様がリラックスできる温かみのある内装と、効率的な診療動線を両立させました。</p>',
+                features: ['バリアフリー設計', '完全個室診察室', '電子カルテ対応配線', 'LED照明採用', '待合スペースの充実', '駐車場整備']
+            },
+            3: {
+                icon: '🏠',
+                category: '介護施設',
+                title: '特別養護老人ホーム □□苑 新築工事',
+                location: '埼玉県○○市',
+                date: '2024年4月',
+                area: '3,200㎡',
+                structure: 'RC造・4階建',
+                desc: '<p>入居者様の尊厳を大切にした、ユニットケア型の特別養護老人ホーム。</p><p>各ユニットに小規模なリビングダイニングを設け、家庭的な雰囲気の中で生活できる環境を整備しました。</p>',
+                features: ['ユニットケア対応', '見守りシステム導入', '機械浴槽設置', '厨房設備完備', '多目的ホール', '屋上庭園']
+            },
+            4: {
+                icon: '🏠',
+                category: '介護施設',
+                title: 'グループホーム ◇◇ 内装改修',
+                location: '千葉県○○市',
+                date: '2023年9月',
+                area: '280㎡',
+                structure: '木造・2階建',
+                desc: '<p>既存のグループホームの内装を全面改修。認知症の方に配慮した色彩計画と動線設計を実施。</p><p>落ち着いた色調と分かりやすいサイン計画により、入居者様の混乱を軽減します。</p>',
+                features: ['認知症対応設計', '転倒防止床材', '温かみのある色彩', '分かりやすいサイン', '見守りカメラ設置', 'ナースコール更新']
+            },
+            5: {
+                icon: '🏠',
+                category: '介護施設',
+                title: '訪問看護ステーション ☆☆ 開設工事',
+                location: '東京都○○区',
+                date: '2023年6月',
+                area: '120㎡',
+                structure: 'RC造・1階部分',
+                desc: '<p>訪問看護ステーションの新規開設に伴う内装工事。スタッフが効率的に業務を行える動線と、来訪者が安心できる空間を両立。</p>',
+                features: ['バリアフリー入口', '相談スペース完備', '医療物品収納', 'カンファレンス室', 'スタッフ休憩室', '駐輪スペース']
+            },
+            6: {
+                icon: '🏪',
+                category: '商業施設',
+                title: '複合商業施設 ▽▽モール テナント内装',
+                location: '神奈川県○○市',
+                date: '2024年2月',
+                area: '450㎡',
+                structure: 'S造・1階部分',
+                desc: '<p>大型商業施設内のテナント区画の内装工事。ブランドイメージを反映した洗練された空間デザインを実現。</p><p>集客力を高める照明計画と、お客様の回遊性を考慮したレイアウトを採用しました。</p>',
+                features: ['ブランディング設計', '演出照明', 'ディスプレイ什器', 'バックヤード効率化', 'POS設置対応', 'セキュリティ設備']
+            },
+            7: {
+                icon: '🏪',
+                category: '商業施設',
+                title: 'オフィスビル ○×ビル リノベーション',
+                location: '東京都○○区',
+                date: '2023年11月',
+                area: '2,800㎡',
+                structure: 'SRC造・8階建',
+                desc: '<p>築30年のオフィスビルを現代的なワークプレイスへとリノベーション。</p><p>フレキシブルなレイアウト変更が可能なオープンオフィスと、集中作業用の個室ブースを設置しました。</p>',
+                features: ['ABW対応設計', 'フリーアドレス', '集中ブース', 'リフレッシュスペース', 'Web会議対応', '省エネ空調更新']
+            },
+            8: {
+                icon: '🏡',
+                category: '住宅・その他',
+                title: 'バリアフリー住宅 S邸 新築工事',
+                location: '東京都○○市',
+                date: '2024年5月',
+                area: '180㎡',
+                structure: '木造・2階建',
+                desc: '<p>車椅子を使用されるご家族のための完全バリアフリー住宅。</p><p>将来の身体状況の変化にも対応できるよう、可変性のある間取りと設備を採用しました。</p>',
+                features: ['段差ゼロ設計', 'ホームエレベーター', '介護浴槽対応', '手すり先行配管', '広い廊下幅', '引き戸採用']
+            },
+            9: {
+                icon: '🏡',
+                category: '住宅・その他',
+                title: 'シェアハウス ◎◎ハウス コンバージョン',
+                location: '埼玉県○○市',
+                date: '2023年8月',
+                area: '320㎡',
+                structure: '木造・3階建',
+                desc: '<p>元社員寮をシェアハウスへとコンバージョン。入居者同士の交流を促すコミュニティスペースと、プライバシーを確保した個室のバランスを重視。</p>',
+                features: ['共用キッチン', 'ランドリールーム', 'コワーキングスペース', '個室エアコン', 'インターネット完備', '宅配ボックス']
+            }
+        };
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const workCards = document.querySelectorAll('.work-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                workCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.classList.remove('hidden');
+                        card.style.animation = 'fadeInUp 0.6s ease forwards';
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('workModal');
+        
+        workCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const workId = card.dataset.work;
+                const data = worksData[workId];
+                
+                document.getElementById('modalIcon').textContent = data.icon;
+                document.getElementById('modalCategory').textContent = data.category;
+                document.getElementById('modalTitle').textContent = data.title;
+                document.getElementById('modalLocation').textContent = data.location;
+                document.getElementById('modalDate').textContent = data.date;
+                document.getElementById('modalArea').textContent = data.area;
+                document.getElementById('modalStructure').textContent = data.structure;
+                document.getElementById('modalDesc').innerHTML = data.desc;
+                
+                const featuresList = document.getElementById('modalFeatures');
+                featuresList.innerHTML = data.features.map(f => `<li>${f}</li>`).join('');
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Mobile menu
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // Header scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
