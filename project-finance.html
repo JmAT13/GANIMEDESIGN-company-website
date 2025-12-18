@@ -117,8 +117,22 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.2;
-            filter: grayscale(60%);
+            opacity: 0.35;
+            filter: grayscale(40%);
+        }
+        .project-hero-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(74, 60, 42, 0.4) 0%,
+                rgba(74, 60, 42, 0.6) 50%,
+                rgba(74, 60, 42, 0.8) 100%
+            );
         }
         .project-hero-content {
             position: relative;
@@ -128,33 +142,38 @@
             width: 100%;
         }
         .project-category {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 0.3em;
-            color: var(--primary);
+            color: #7dd3c0;
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 1rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
         .project-category::before {
             content: '';
             width: 40px;
             height: 1px;
-            background: var(--accent);
+            background: #7dd3c0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
         .project-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 300;
-            color: var(--accent);
+            color: #ffffff;
             line-height: 1.2;
             margin-bottom: 1.5rem;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
         }
         .project-tagline {
-            font-size: 1.1rem;
-            font-weight: 200;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.95);
             max-width: 600px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            line-height: 1.8;
         }
 
         /* ========== Content ========== */
