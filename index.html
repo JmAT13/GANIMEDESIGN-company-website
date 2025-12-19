@@ -431,77 +431,90 @@
             100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
         }
         
-        /* Project Popup - Yellow Memo Style */
+        /* Project Popup - Modern Glass Style */
         .project-popup {
             position: absolute;
-            top: 20%;
-            left: 20%;
-            transform: translate(-50%, -50%) scale(0.9) rotate(-2deg);
-            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
-            border-radius: 4px;
-            padding: 1.5rem 1.5rem 1.5rem 1.5rem;
-            width: 280px;
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            width: 300px;
             box-shadow: 
-                3px 3px 10px rgba(0, 0, 0, 0.2),
-                0 0 0 1px rgba(0, 0, 0, 0.05);
+                0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 100;
-            border-left: 4px solid #ffd54f;
+            pointer-events: none;
         }
         .project-popup::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 25px;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, transparent 100%);
-            border-radius: 4px 4px 0 0;
+            bottom: -10px;
+            left: 30px;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            transform: rotate(45deg);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+            z-index: -1;
         }
         .project-popup.active {
             opacity: 1;
             visibility: visible;
-            transform: translate(-50%, -50%) scale(1) rotate(-1deg);
+            transform: translateY(0);
+            pointer-events: auto;
         }
         .popup-close {
             position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            width: 24px;
-            height: 24px;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 28px;
+            height: 28px;
             border: none;
-            background: rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
             border-radius: 50%;
-            font-size: 1rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            color: #5d4037;
-            transition: background 0.3s;
+            color: #666;
+            transition: all 0.3s;
             line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .popup-close:hover {
-            background: rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+            transform: rotate(90deg);
         }
         .popup-category {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            color: #5d4037;
-            margin-bottom: 0.5rem;
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: white;
+            background: linear-gradient(135deg, var(--accent-dark) 0%, var(--primary) 100%);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
             text-transform: uppercase;
         }
         .popup-title {
             font-family: 'Noto Sans JP', sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #3e2723;
-            margin-bottom: 0.75rem;
-            line-height: 1.5;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
         }
         .popup-desc {
-            font-size: 0.85rem;
-            color: #5d4037;
+            font-size: 0.8rem;
+            color: #636e72;
             line-height: 1.7;
             margin-bottom: 1rem;
         }
@@ -509,14 +522,26 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.85rem;
-            color: #5d4037;
-            font-weight: 500;
-            transition: gap 0.3s, color 0.3s;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgba(125, 211, 192, 0.15) 0%, rgba(125, 211, 192, 0.25) 100%);
+            border-radius: 20px;
+            transition: all 0.3s;
         }
         .popup-link:hover {
-            gap: 1rem;
-            color: #3e2723;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--primary);
+            transform: translateX(3px);
+        }
+        
+        /* Popup arrow when showing below icon */
+        .project-popup.below::before {
+            bottom: auto;
+            top: -10px;
+            box-shadow: -3px -3px 10px rgba(0, 0, 0, 0.05);
         }
         
         .section-footer {
@@ -1084,6 +1109,7 @@
 
         const popup = document.getElementById('projectPopup');
         const mapIcons = document.querySelectorAll('.map-icon');
+        const projectMap = document.querySelector('.project-map');
 
         mapIcons.forEach(icon => {
             icon.addEventListener('click', (e) => {
@@ -1098,6 +1124,35 @@
                 document.getElementById('popupDesc').style.display = data.desc ? 'block' : 'none';
                 document.getElementById('popupLink').href = data.link;
                 document.getElementById('popupLink').style.display = (data.title || data.desc) ? 'inline-flex' : 'none';
+                
+                // Position popup near the icon
+                const iconRect = icon.getBoundingClientRect();
+                const mapRect = projectMap.getBoundingClientRect();
+                const popupWidth = 300;
+                const popupHeight = popup.offsetHeight || 200;
+                
+                // Calculate position relative to map
+                let left = iconRect.left - mapRect.left + iconRect.width / 2 - 30;
+                let top = iconRect.top - mapRect.top - popupHeight - 20;
+                
+                // Adjust if popup goes off the right edge
+                if (left + popupWidth > mapRect.width) {
+                    left = mapRect.width - popupWidth - 20;
+                }
+                // Adjust if popup goes off the left edge
+                if (left < 20) {
+                    left = 20;
+                }
+                // If popup goes above the map, show below the icon
+                if (top < 10) {
+                    top = iconRect.top - mapRect.top + iconRect.height + 20;
+                    popup.classList.add('below');
+                } else {
+                    popup.classList.remove('below');
+                }
+                
+                popup.style.left = left + 'px';
+                popup.style.top = top + 'px';
                 
                 popup.classList.add('active');
             });
