@@ -12,12 +12,12 @@
             --primary: #4a3c2a;
             --primary-light: #6b5a45;
             --primary-dark: #3d3225;
-            --accent: #7dd3c0;
-            --accent-dark: #5ec4ad;
-            --accent-darker: #4db8a5;
-            --bg-light: #7dd3c0;
-            --bg-dark: #5ec4ad;
-            --bg-white: #8fe0d0;
+            --accent: #83B8BA;
+            --accent-dark: #6AADAF;
+            --accent-darker: #5A9EA0;
+            --bg-light: #83B8BA;
+            --bg-dark: #6AADAF;
+            --bg-white: #9AC8CA;
             --text-dark: #4a3c2a;
             --text-light: #f5f5f3;
         }
@@ -50,7 +50,7 @@
             transition: all 0.5s ease;
         }
         header.scrolled {
-            background: rgba(125, 211, 192, 0.95);
+            background: rgba(131, 184, 186, 0.95);
             backdrop-filter: blur(20px);
             padding: 1rem 4rem;
             box-shadow: 0 4px 30px rgba(74, 60, 42, 0.1);
@@ -113,7 +113,7 @@
         /* ========== Hero ========== */
         .hero {
             min-height: 90vh;
-            background: linear-gradient(-45deg, #7dd3c0, #5ec4ad, #8fe0d0, #4db8a5);
+            background: linear-gradient(-45deg, #83B8BA, #6AADAF, #9AC8CA, #5A9EA0);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             display: flex;
@@ -135,21 +135,17 @@
             border-radius: 50%;
             pointer-events: none;
         }
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60vmin;
-            height: 60vmin;
-            background-image: url('hero-bg.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.25;
-            pointer-events: none;
-            z-index: 1;
+        .hero-logo {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         .hero-label,
         .hero h1,
@@ -682,9 +678,12 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="hero-logo">
+            <img src="hero-bg.png" alt="GANIMEDESIGN Logo">
+        </div>
         <span class="hero-label">GANIMEDESIGN</span>
         <h1>すべてを、<span>デザイン</span>する。</h1>
-        <p class="hero-sub">業種の壁を越え、課題を「デザイン」で解決する。<br>それがGANIMEDESIGNのアプローチです。</p>
+        <p class="hero-sub">業種の壁を越え、あらゆる社会課題を「デザイン」で解決する。<br>それがGANIMEDESIGNのアプローチです。</p>
         <div class="hero-buttons">
             <a href="inhouse-cf.html" class="btn btn-primary">仕組みを見る →</a>
             <a href="projects.html" class="btn btn-secondary">プロジェクトを見る</a>
