@@ -12,12 +12,12 @@
             --primary: #4a3c2a;
             --primary-light: #6b5a45;
             --primary-dark: #3d3225;
-            --accent: #83B8BA;
-            --accent-dark: #6AADAF;
-            --accent-darker: #5A9EA0;
-            --bg-light: #83B8BA;
-            --bg-dark: #6AADAF;
-            --bg-white: #9AC8CA;
+            --accent: #B0D6D8;
+            --accent-dark: #7DBDBE;
+            --accent-darker: #6EB0B2;
+            --bg-light: #B0D6D8;
+            --bg-dark: #7DBDBE;
+            --bg-white: #B0D6D8;
             --text-dark: #4a3c2a;
             --text-light: #f5f5f3;
         }
@@ -50,7 +50,7 @@
             transition: all 0.5s ease;
         }
         header.scrolled {
-            background: rgba(131, 184, 186, 0.95);
+            background: rgba(154, 200, 202, 0.95);
             backdrop-filter: blur(20px);
             padding: 1rem 4rem;
             box-shadow: 0 4px 30px rgba(74, 60, 42, 0.1);
@@ -110,86 +110,107 @@
             transition: 0.3s;
         }
 
-        /* ========== Hero ========== */
+        /* ========== Hero Split Layout ========== */
         .hero {
-            min-height: 90vh;
-            background: linear-gradient(-45deg, #83B8BA, #6AADAF, #9AC8CA, #5A9EA0);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            position: relative;
+        }
+        .hero-center-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        .hero-center-logo img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+        }
+        .hero-split {
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 8rem 2rem;
+            padding: 4rem 2rem;
             position: relative;
+            transition: all 0.5s ease;
         }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 20%;
-            right: -15%;
-            width: 50vw;
-            height: 50vw;
-            border: 1px solid rgba(74, 60, 42, 0.06);
-            border-radius: 50%;
-            pointer-events: none;
+        .hero-split:hover {
+            flex: 1.1;
         }
-        .hero-logo {
-            width: 180px;
-            height: 180px;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease forwards;
+        .hero-split.left {
+            background: #9AC8CA;
         }
-        .hero-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+        .hero-split.right {
+            background: #8A9A9C;
         }
-        .hero-label,
-        .hero h1,
-        .hero-sub,
-        .hero-buttons {
-            position: relative;
-            z-index: 2;
-        }
-        .hero-label {
+        .hero-brand {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.9rem;
-            letter-spacing: 0.4em;
-            color: var(--primary);
-            opacity: 0.6;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 1s ease forwards;
-        }
-        .hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 1s ease 0.2s forwards;
-            opacity: 0;
-        }
-        .hero h1 span {
-            font-style: italic;
-        }
-        .hero-sub {
-            font-size: 1rem;
-            color: var(--primary);
-            opacity: 0.7;
-            max-width: 600px;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 500;
+            color: white;
+            line-height: 1.1;
+            text-align: left;
             margin-bottom: 3rem;
-            animation: fadeInUp 1s ease 0.4s forwards;
-            opacity: 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            animation: fadeInUp 1s ease 0.6s forwards;
-            opacity: 0;
+        .hero-brand .line {
+            display: block;
+        }
+        .hero-brand .line.indent {
+            padding-left: 1em;
+        }
+        .show-me-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        .show-me-btn:hover {
+            background: white;
+            color: #4a3c2a;
+        }
+        .hero-split.right .show-me-btn:hover {
+            color: #8A9A9C;
+        }
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+            }
+            .hero-split {
+                min-height: 50vh;
+            }
+            .hero-split:hover {
+                flex: 1;
+            }
+            .hero-brand {
+                font-size: 2.5rem;
+            }
+            .hero-center-logo {
+                width: 80px;
+                height: 80px;
+            }
         }
         .btn {
             display: inline-flex;
@@ -676,17 +697,26 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - Split Layout -->
     <section class="hero">
-        <div class="hero-logo">
+        <div class="hero-center-logo">
             <img src="hero-bg.png" alt="GANIMEDESIGN Logo">
         </div>
-        <span class="hero-label">GANIMEDESIGN</span>
-        <h1>すべてを、<span>デザイン</span>する。</h1>
-        <p class="hero-sub">業種の壁を越え、あらゆる社会課題を「デザイン」で解決する。<br>それがGANIMEDESIGNのアプローチです。</p>
-        <div class="hero-buttons">
-            <a href="inhouse-cf.html" class="btn btn-primary">仕組みを見る →</a>
-            <a href="projects.html" class="btn btn-secondary">プロジェクトを見る</a>
+        <div class="hero-split left">
+            <div class="hero-brand">
+                <span class="line">GANIME</span>
+                <span class="line">DE</span>
+                <span class="line indent">SIGN</span>
+            </div>
+            <a href="business.html" class="show-me-btn">SHOW ME</a>
+        </div>
+        <div class="hero-split right">
+            <div class="hero-brand">
+                <span class="line">GANIME</span>
+                <span class="line">DE</span>
+                <span class="line indent">MARKET</span>
+            </div>
+            <a href="projects.html" class="show-me-btn">SHOW ME</a>
         </div>
     </section>
 
@@ -896,7 +926,7 @@
                 <h3>CONTACT</h3>
                 <ul>
                     <li><a href="contact.html">お問い合わせ</a></li>
-                    <li><a href="/cdn-cgi/l/email-protection#fe97909891be999f9097939bd0948e"><span class="__cf_email__" data-cfemail="7e171018113e191f1017131b50140e">[email&#160;protected]</span></a></li>
+                    <li><a href="/cdn-cgi/l/email-protection#2841464e47684f494641454d064258"><span class="__cf_email__" data-cfemail="d2bbbcb4bd92b5b3bcbbbfb7fcb8a2">[email&#160;protected]</span></a></li>
                 </ul>
             </div>
         </div>
