@@ -9,27 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4a3c2a;
-            --primary-light: #6b5a45;
-            --primary-dark: #3d3225;
-            --accent: #B0D6D8;
-            --accent-dark: #7DBDBE;
-            --accent-darker: #6EB0B2;
-            --bg-light: #B0D6D8;
-            --bg-dark: #7DBDBE;
-            --bg-white: #B0D6D8;
-            --text-dark: #4a3c2a;
-            --text-light: #f5f5f3;
+            --mint: #9AC8CA;
+            --gray: #8A9A9C;
+            --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         
         body { 
-            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Cormorant Garamond', serif;
             line-height: 1.8; 
-            color: var(--text-dark);
-            background: var(--bg-light);
+            color: var(--white);
+            background: var(--mint);
             overflow-x: hidden;
         }
 
@@ -53,7 +45,7 @@
             background: rgba(154, 200, 202, 0.95);
             backdrop-filter: blur(20px);
             padding: 1rem 4rem;
-            box-shadow: 0 4px 30px rgba(74, 60, 42, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
         .header-container {
             display: flex;
@@ -67,14 +59,15 @@
             font-size: 1.4rem;
             font-weight: 400;
             letter-spacing: 0.3em;
-            color: var(--primary);
+            color: var(--white);
             transition: opacity 0.3s;
         }
         .logo:hover { opacity: 0.7; }
         nav { display: flex; gap: 2.5rem; }
         nav a {
-            color: var(--primary);
-            font-size: 0.75rem;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--white);
+            font-size: 0.9rem;
             font-weight: 400;
             letter-spacing: 0.15em;
             padding: 0.5rem 0;
@@ -90,7 +83,7 @@
             left: 0;
             width: 0;
             height: 1px;
-            background: var(--primary);
+            background: var(--white);
             transition: width 0.3s ease;
         }
         nav a:hover::after { width: 100%; }
@@ -106,7 +99,7 @@
         .menu-toggle span {
             width: 25px;
             height: 1px;
-            background: var(--primary);
+            background: var(--white);
             transition: 0.3s;
         }
 
@@ -186,7 +179,7 @@
         }
         .show-me-btn:hover {
             background: white;
-            color: #4a3c2a;
+            color: #8A9A9C;
         }
         .hero-split.right .show-me-btn:hover {
             color: #8A9A9C;
@@ -210,38 +203,40 @@
             }
         }
         .btn {
+            font-family: 'Cormorant Garamond', serif;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 1rem 2.5rem;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 400;
             letter-spacing: 0.1em;
-            border-radius: 50px;
+            border-radius: 0;
             transition: all 0.3s ease;
         }
         .btn-primary {
-            background: var(--primary);
-            color: var(--text-light);
-            border: 1px solid var(--primary);
+            background: var(--white);
+            color: var(--gray);
+            border: 2px solid var(--white);
         }
         .btn-primary:hover {
-            background: var(--primary-light);
+            background: transparent;
+            color: var(--white);
         }
         .btn-secondary {
             background: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
+            color: var(--white);
+            border: 2px solid var(--white);
         }
         .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--text-light);
+            background: var(--white);
+            color: var(--gray);
         }
 
         /* ========== News Bar ========== */
         .news-bar {
-            background: var(--primary);
-            color: var(--text-light);
+            background: var(--gray);
+            color: var(--white);
             padding: 1rem 2rem;
         }
         .news-bar-inner {
@@ -254,9 +249,10 @@
         }
         .news-bar-label {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             letter-spacing: 0.2em;
-            color: var(--accent);
+            color: var(--white);
+            opacity: 0.7;
             flex-shrink: 0;
         }
         .news-bar-content {
@@ -265,11 +261,13 @@
             gap: 1.5rem;
         }
         .news-bar-date {
-            font-size: 0.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
             opacity: 0.7;
         }
         .news-bar-title {
-            font-size: 0.9rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
             font-weight: 300;
         }
         .news-bar-title a {
@@ -279,8 +277,9 @@
             opacity: 0.7;
         }
         .news-bar-link {
+            font-family: 'Cormorant Garamond', serif;
             flex-shrink: 0;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             letter-spacing: 0.1em;
             opacity: 0.7;
             transition: opacity 0.3s;
@@ -292,7 +291,7 @@
         /* ========== In-house CF Section ========== */
         .cf-section {
             padding: 8rem 2rem;
-            background: var(--bg-white);
+            background: var(--gray);
         }
         .cf-container {
             max-width: 1100px;
@@ -303,8 +302,8 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 0.85rem;
             letter-spacing: 0.3em;
-            color: var(--primary);
-            opacity: 0.6;
+            color: var(--white);
+            opacity: 0.7;
             margin-bottom: 1rem;
         }
         .section-title {
@@ -312,13 +311,14 @@
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 400;
             letter-spacing: 0.1em;
-            color: var(--primary);
+            color: var(--white);
             margin-bottom: 1.5rem;
         }
         .section-desc {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1rem;
-            color: var(--primary);
-            opacity: 0.8;
+            color: var(--white);
+            opacity: 0.9;
             max-width: 700px;
             margin: 0 auto 3rem;
             line-height: 2;
@@ -343,8 +343,8 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: var(--primary);
-            color: var(--text-light);
+            background: var(--white);
+            color: var(--gray);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -352,14 +352,15 @@
             font-size: 1.2rem;
         }
         .cf-step-label {
-            font-size: 0.75rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
             letter-spacing: 0.1em;
-            color: var(--primary);
+            color: var(--white);
             font-weight: 500;
         }
         .cf-arrow {
-            color: var(--primary);
-            opacity: 0.4;
+            color: var(--white);
+            opacity: 0.5;
             font-size: 1.5rem;
         }
         .cf-buttons {
@@ -372,7 +373,7 @@
         /* ========== Projects Section ========== */
         .projects-section {
             padding: 8rem 2rem;
-            background: var(--bg-light);
+            background: var(--mint);
         }
         .projects-container {
             max-width: 1200px;
@@ -382,65 +383,160 @@
             text-align: center;
             margin-bottom: 4rem;
         }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+        
+        /* Project Map */
+        .project-map-wrapper {
+            position: relative;
             margin-bottom: 3rem;
         }
-        .project-card {
-            background: rgba(255, 255, 255, 0.3);
+        .project-map {
+            position: relative;
             border-radius: 20px;
             overflow: hidden;
-            transition: all 0.4s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(74, 60, 42, 0.15);
+        .map-image {
+            width: 100%;
+            display: block;
         }
-        .project-image {
-            height: 220px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        .project-status {
+        
+        /* Map Icons */
+        .map-icon {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.4rem 1rem;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            border-radius: 50px;
-            background: var(--primary);
-            color: var(--text-light);
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 10;
+            transform: translate(-50%, -50%);
         }
-        .project-status.planning {
-            background: var(--accent-dark);
-            color: var(--primary);
+        .icon-inner {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffec8b 50%, #ffd700 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #b8860b;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 2;
+            border: 2px solid rgba(255, 255, 255, 0.6);
         }
-        .project-content {
-            padding: 2rem;
+        .map-icon:nth-child(2) .icon-inner { animation-delay: 0.5s; }
+        .map-icon:nth-child(3) .icon-inner { animation-delay: 1s; }
+        .map-icon:nth-child(4) .icon-inner { animation-delay: 1.5s; }
+        .map-icon:nth-child(5) .icon-inner { animation-delay: 2s; }
+        .map-icon:nth-child(6) .icon-inner { animation-delay: 2.5s; }
+        .map-icon:nth-child(7) .icon-inner { animation-delay: 3s; }
+        
+        .map-icon:hover .icon-inner {
+            transform: scale(1.3);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.6), 0 8px 25px rgba(0, 0, 0, 0.4);
         }
-        .project-category {
+        .icon-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            animation: pulse 2s ease-out infinite;
+            z-index: 1;
+        }
+        .map-icon:nth-child(2) .icon-pulse { animation-delay: 0.3s; }
+        .map-icon:nth-child(3) .icon-pulse { animation-delay: 0.6s; }
+        .map-icon:nth-child(4) .icon-pulse { animation-delay: 0.9s; }
+        .map-icon:nth-child(5) .icon-pulse { animation-delay: 1.2s; }
+        .map-icon:nth-child(6) .icon-pulse { animation-delay: 1.5s; }
+        .map-icon:nth-child(7) .icon-pulse { animation-delay: 1.8s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.3); }
+        }
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+        }
+        
+        /* Project Popup */
+        .project-popup {
+            position: absolute;
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            width: 300px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 100;
+            pointer-events: none;
+        }
+        .project-popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .popup-close {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .popup-close:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+        .popup-category {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 0.7rem;
             letter-spacing: 0.15em;
-            color: var(--primary);
-            opacity: 0.6;
+            color: var(--gray);
             margin-bottom: 0.5rem;
         }
-        .project-title {
+        .popup-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
         }
-        .project-desc {
+        .popup-desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--gray);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .popup-link {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 0.85rem;
-            color: var(--primary);
-            opacity: 0.7;
-            line-height: 1.8;
+            color: var(--mint);
+            letter-spacing: 0.1em;
         }
+        
         .section-footer {
             text-align: center;
         }
@@ -448,7 +544,7 @@
         /* ========== Business Section ========== */
         .business-section {
             padding: 8rem 2rem;
-            background: var(--bg-dark);
+            background: var(--gray);
         }
         .business-container {
             max-width: 1200px;
@@ -461,40 +557,41 @@
             margin-bottom: 3rem;
         }
         .business-card {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 0;
             padding: 2rem 1.5rem;
             text-align: center;
             transition: all 0.3s ease;
         }
         .business-card:hover {
-            background: rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-5px);
         }
         .business-number {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2rem;
-            color: var(--primary);
-            opacity: 0.3;
+            color: var(--white);
+            opacity: 0.4;
             margin-bottom: 1rem;
         }
         .business-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.1rem;
             letter-spacing: 0.1em;
-            color: var(--primary);
+            color: var(--white);
             margin-bottom: 0.75rem;
         }
         .business-subtitle {
-            font-size: 0.75rem;
-            color: var(--primary);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            color: var(--white);
             opacity: 0.7;
         }
 
         /* ========== News Section ========== */
         .news-section {
             padding: 8rem 2rem;
-            background: var(--bg-white);
+            background: var(--mint);
         }
         .news-container {
             max-width: 900px;
@@ -507,38 +604,41 @@
             display: flex;
             gap: 2rem;
             padding: 2rem 0;
-            border-bottom: 1px solid rgba(74, 60, 42, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
         .news-date {
             font-family: 'Cormorant Garamond', serif;
             font-size: 0.9rem;
-            color: var(--primary);
-            opacity: 0.6;
+            color: var(--white);
+            opacity: 0.7;
             min-width: 100px;
         }
         .news-content {
             flex: 1;
         }
         .news-category {
+            font-family: 'Cormorant Garamond', serif;
             display: inline-block;
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             letter-spacing: 0.1em;
             padding: 0.3rem 0.8rem;
-            background: var(--primary);
-            color: var(--text-light);
-            border-radius: 50px;
+            background: var(--white);
+            color: var(--gray);
+            border-radius: 0;
             margin-bottom: 0.75rem;
         }
         .news-category.service {
-            background: var(--accent-dark);
-            color: var(--primary);
+            background: var(--gray);
+            color: var(--white);
         }
         .news-category.media {
-            background: var(--primary-light);
+            background: var(--white);
+            color: var(--gray);
         }
         .news-title {
-            font-size: 1rem;
-            color: var(--primary);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--white);
             margin-bottom: 0.5rem;
         }
         .news-title a {
@@ -548,15 +648,16 @@
             opacity: 0.6;
         }
         .news-excerpt {
-            font-size: 0.85rem;
-            color: var(--primary);
-            opacity: 0.7;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--white);
+            opacity: 0.8;
         }
 
         /* ========== Contact CTA ========== */
         .contact-section {
             padding: 8rem 2rem;
-            background: var(--primary);
+            background: var(--gray);
             text-align: center;
         }
         .contact-container {
@@ -565,38 +666,122 @@
         }
         .contact-label {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             letter-spacing: 0.3em;
-            color: var(--accent);
+            color: var(--white);
+            opacity: 0.7;
             margin-bottom: 1rem;
         }
         .contact-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(1.8rem, 4vw, 2.5rem);
-            color: var(--text-light);
+            color: var(--white);
             margin-bottom: 1.5rem;
         }
         .contact-desc {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1rem;
-            color: var(--text-light);
-            opacity: 0.8;
+            color: var(--white);
+            opacity: 0.9;
             margin-bottom: 3rem;
             line-height: 2;
         }
         .btn-light {
-            background: var(--text-light);
-            color: var(--primary);
-            border: 1px solid var(--text-light);
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--white);
+            color: var(--gray);
+            border: 2px solid var(--white);
+            padding: 1rem 2.5rem;
+            font-size: 0.95rem;
         }
         .btn-light:hover {
             background: transparent;
-            color: var(--text-light);
+            color: var(--white);
+        }
+
+        /* ========== Partners Section ========== */
+        .partners-section {
+            padding: 6rem 2rem;
+            background: var(--gray);
+            overflow: hidden;
+        }
+        .partners-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .partners-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .logo-slider {
+            overflow: hidden;
+            padding: 1rem 0;
+            position: relative;
+        }
+        .logo-slider::before,
+        .logo-slider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .logo-slider::before {
+            left: 0;
+            background: linear-gradient(to right, var(--gray), transparent);
+        }
+        .logo-slider::after {
+            right: 0;
+            background: linear-gradient(to left, var(--gray), transparent);
+        }
+        .logo-track {
+            display: flex;
+            gap: 2rem;
+            animation: scroll 30s linear infinite;
+            width: fit-content;
+        }
+        .logo-slider.reverse .logo-track {
+            animation: scroll-reverse 30s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes scroll-reverse {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+        .logo-item {
+            flex-shrink: 0;
+            width: 140px;
+            height: 140px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .logo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        .logo-item span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray);
+            letter-spacing: 0.05em;
+            text-align: center;
         }
 
         /* ========== Footer ========== */
         footer {
-            background: var(--primary-dark);
-            color: var(--text-light);
+            background: var(--mint);
+            color: var(--white);
             padding: 5rem 2rem 2rem;
         }
         .footer-content {
@@ -608,26 +793,27 @@
         }
         .footer-section h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.9rem;
+            font-size: 1rem;
             letter-spacing: 0.2em;
             margin-bottom: 1.5rem;
-            color: var(--accent);
+            color: var(--white);
         }
         .footer-section ul { list-style: none; }
         .footer-section li { margin-bottom: 0.5rem; }
         .footer-section a {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.85rem;
+            font-family: 'Cormorant Garamond', serif;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
             font-weight: 300;
-            transition: color 0.3s;
+            transition: opacity 0.3s;
         }
-        .footer-section a:hover { color: var(--accent); }
+        .footer-section a:hover { opacity: 0.6; }
         .footer-bottom {
             text-align: center;
             padding-top: 2rem;
-            border-top: 1px solid rgba(125, 211, 192, 0.2);
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
             font-family: 'Cormorant Garamond', serif;
             letter-spacing: 0.1em;
         }
@@ -778,27 +964,49 @@
                 <span class="section-label">PROJECTS</span>
                 <h2 class="section-title">プロジェクト</h2>
             </div>
-            <div class="projects-grid">
-                <a href="project-life.html" class="project-card animate-on-scroll">
-                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600');">
-                        <span class="project-status">進行中</span>
+            <div class="project-map-wrapper">
+                <div class="project-map">
+                    <img src="future-city-image.png" alt="Future City Map" class="map-image">
+                    
+                    <!-- Project Icons -->
+                    <div class="map-icon" data-project="heli" style="top: 28%; left: 12%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">★</div>
                     </div>
-                    <div class="project-content">
-                        <span class="project-category">LIFE DESIGN</span>
-                        <h3 class="project-title">介護村プロジェクト</h3>
-                        <p class="project-desc">高齢者が安心して暮らせる、新しい介護コミュニティの構築</p>
+                    <div class="map-icon" data-project="emergency" style="top: 25%; left: 52%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">★</div>
                     </div>
-                </a>
-                <a href="project-finance.html" class="project-card animate-on-scroll">
-                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600');">
-                        <span class="project-status">進行中</span>
+                    <div class="map-icon" data-project="mascot" style="top: 35%; left: 62%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">★</div>
                     </div>
-                    <div class="project-content">
-                        <span class="project-category">SYSTEM DESIGN</span>
-                        <h3 class="project-title">医療×金融プロジェクト</h3>
-                        <p class="project-desc">医療と金融を融合した、新しい社会インフラの設計</p>
+                    <div class="map-icon" data-project="ambulance" style="top: 48%; left: 40%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">★</div>
                     </div>
-                </a>
+                    <div class="map-icon" data-project="finance" style="top: 78%; left: 40%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">★</div>
+                    </div>
+                    <div class="map-icon" data-project="digital" style="top: 62%; left: 60%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">★</div>
+                    </div>
+                    <div class="map-icon" data-project="care" style="top: 78%; left: 68%;">
+                        <div class="icon-pulse"></div>
+                        <div class="icon-inner">★</div>
+                    </div>
+                </div>
+                
+                <!-- Project Popup -->
+                <div class="project-popup" id="projectPopup">
+                    <button class="popup-close" onclick="closePopup()">×</button>
+                    <div class="popup-category" id="popupCategory">LIFE DESIGN</div>
+                    <h3 class="popup-title" id="popupTitle">介護村プロジェクト</h3>
+                    <p class="popup-desc" id="popupDesc">高齢者が安心して暮らせる、新しい介護コミュニティの構築</p>
+                    <a href="#" class="popup-link" id="popupLink">詳しく見る →</a>
+                </div>
             </div>
             <div class="section-footer animate-on-scroll">
                 <a href="projects.html" class="btn btn-secondary">すべてのプロジェクト →</a>
@@ -880,6 +1088,56 @@
         </div>
     </section>
 
+    <!-- Partners Logo Slider -->
+    <section class="partners-section">
+        <div class="partners-container">
+            <div class="partners-header animate-on-scroll">
+                <span class="section-label">PARTNERS</span>
+                <h2 class="section-title">HAPPY COMPANIONS</h2>
+            </div>
+            <div class="logo-slider">
+                <div class="logo-track">
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                </div>
+            </div>
+            <div class="logo-slider reverse">
+                <div class="logo-track">
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                    <div class="logo-item"><span>GANIME</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact CTA -->
     <section class="contact-section">
         <div class="contact-container animate-on-scroll">
@@ -932,7 +1190,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Header scroll effect
         window.addEventListener('scroll', () => {
             document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
@@ -942,3 +1200,110 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Project Map Popup
+        const projectData = {
+            heli: {
+                category: 'HUMAN ECOSYSTEM',
+                title: 'Designed to Sustain Life',
+                desc: '生命を、持続させるための設計。自然、建築、医療、創造、コミュニティを統合し、人の一生を支える"生きたシステム"。',
+                link: 'projects.html'
+            },
+            emergency: {
+                category: 'LIFELINE CORE',
+                title: '救急・医療・物流・意思決定を一体化',
+                desc: '地上と空をつなぎ、人とシステムを即時に接続し、「遅れない医療」を実現します。',
+                link: 'project-life.html'
+            },
+            mascot: {
+                category: 'Make Imagination',
+                title: 'ただの工場ではないです',
+                desc: '想像を、生産するためのインフラです。',
+                link: 'projects.html'
+            },
+            ambulance: {
+                category: 'Coming soon',
+                title: '',
+                desc: '',
+                link: 'projects.html'
+            },
+            finance: {
+                category: 'Coming soon',
+                title: '',
+                desc: '',
+                link: 'projects.html'
+            },
+            digital: {
+                category: 'RE:FORM',
+                title: 'Redesign Yourself',
+                desc: '人の印象と自信を設計するスタジオです。外見が変わると、行動が変わり、行動が変わると人生が変わります。',
+                link: 'projects.html'
+            },
+            care: {
+                category: 'SECOND LIFE CORE',
+                title: '住まい、医療、ケア、仕事、家族',
+                desc: '支える場所ではなく、生き続けるための環境を設計します。',
+                link: 'project-life.html'
+            }
+        };
+
+        const popup = document.getElementById('projectPopup');
+        const mapIcons = document.querySelectorAll('.map-icon');
+        const projectMap = document.querySelector('.project-map');
+
+        if (mapIcons && popup && projectMap) {
+            mapIcons.forEach(icon => {
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const projectId = icon.dataset.project;
+                    const data = projectData[projectId];
+                    
+                    document.getElementById('popupCategory').textContent = data.category;
+                    document.getElementById('popupTitle').textContent = data.title;
+                    document.getElementById('popupTitle').style.display = data.title ? 'block' : 'none';
+                    document.getElementById('popupDesc').textContent = data.desc;
+                    document.getElementById('popupDesc').style.display = data.desc ? 'block' : 'none';
+                    document.getElementById('popupLink').href = data.link;
+                    document.getElementById('popupLink').style.display = (data.title || data.desc) ? 'inline-flex' : 'none';
+                    
+                    const iconRect = icon.getBoundingClientRect();
+                    const mapRect = projectMap.getBoundingClientRect();
+                    
+                    let left = iconRect.left - mapRect.left + iconRect.width / 2 - 30;
+                    let top = iconRect.top - mapRect.top - 200;
+                    
+                    if (left + 300 > mapRect.width) {
+                        left = mapRect.width - 320;
+                    }
+                    if (left < 20) {
+                        left = 20;
+                    }
+                    if (top < 10) {
+                        top = iconRect.top - mapRect.top + iconRect.height + 20;
+                    }
+                    
+                    popup.style.left = left + 'px';
+                    popup.style.top = top + 'px';
+                    popup.classList.add('active');
+                });
+            });
+        }
+
+        function closePopup() {
+            if (popup) popup.classList.remove('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (popup && !e.target.closest('.project-popup') && !e.target.closest('.map-icon')) {
+                closePopup();
+            }
+        });
+    </script>
+</body>
+</html>
