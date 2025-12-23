@@ -43,16 +43,20 @@
             padding: 6rem 2rem;
             position: relative;
         }
-        .hero::before {
-            content: '';
+        .hero-logo {
             position: absolute;
-            width: 200px;
-            height: 200px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50%;
+            width: 180px;
+            height: 180px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         .hero-label {
             font-family: 'Cinzel', serif;
@@ -313,6 +317,9 @@
     <a href="index.html" class="back-btn">← TOP</a>
 
     <section class="hero">
+        <div class="hero-logo">
+            <img src="hero-bg.png" alt="">
+        </div>
         <span class="hero-label">GANIMEDESIGN</span>
         <h1>COMPANY</h1>
         <p class="hero-subtitle">会社概要</p>
