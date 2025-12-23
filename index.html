@@ -141,30 +141,36 @@
             margin-bottom: 3rem;
         }
 
-        .hero-half.left .hero-title {
-            text-align: left;
-        }
-
-        .hero-half.right .hero-title {
-            text-align: right;
-        }
-
         .hero-title .line {
             display: block;
         }
 
+        /* Left side - GANIME DE SIGN */
+        .hero-half.left .hero-title {
+            text-align: left;
+        }
+        .hero-half.left .hero-title .line:nth-child(1) {
+            padding-left: 1em;
+        }
         .hero-half.left .hero-title .line:nth-child(2) {
-            padding-left: 0.5em;
+            padding-left: 0;
         }
         .hero-half.left .hero-title .line:nth-child(3) {
-            padding-left: 1.5em;
+            padding-left: 2em;
         }
 
-        .hero-half.right .hero-title .line:nth-child(2) {
+        /* Right side - GANIME DE MARKET */
+        .hero-half.right .hero-title {
+            text-align: right;
+        }
+        .hero-half.right .hero-title .line:nth-child(1) {
             padding-right: 1em;
         }
-        .hero-half.right .hero-title .line:nth-child(3) {
+        .hero-half.right .hero-title .line:nth-child(2) {
             padding-right: 0;
+        }
+        .hero-half.right .hero-title .line:nth-child(3) {
+            padding-right: 2em;
         }
 
         .hero-btn {
