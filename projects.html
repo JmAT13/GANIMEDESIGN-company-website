@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロジェクト | GANIMEDEMARKET</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-mint: #9AC8CA;
+            --primary-gray: #8A9A9C;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8; 
+            color: var(--text-dark);
+            background: var(--white);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .animate-on-scroll.animated { opacity: 1; transform: translateY(0); }
+
+        /* ========== Header ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            background: rgba(138, 154, 156, 0.95);
+            backdrop-filter: blur(20px);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            color: var(--white);
+        }
+        .logo:hover { opacity: 0.8; }
+        nav { display: flex; gap: 2.5rem; }
+        nav a {
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+        .menu-toggle { display: none; background: none; border: none; cursor: pointer; }
+        .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; }
+
+        /* ========== Hero ========== */
+        .hero {
+            min-height: 50vh;
+            background: var(--primary-gray);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 5rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .hero-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--white);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+        .hero-subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+        }
+
+        /* ========== Projects Intro ========== */
+        .intro-section {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+        .intro-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 400;
+            color: var(--primary-gray);
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+        }
+        .intro-text {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-light);
+            line-height: 2.2;
+        }
+
+        /* ========== Featured Project ========== */
+        .featured-project {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(154,200,202,0.1) 0%, rgba(138,154,156,0.1) 100%);
+        }
+        .featured-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .featured-badge {
+            display: inline-block;
+            background: var(--primary-gray);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 2rem;
+        }
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .featured-image {
+            aspect-ratio: 16/10;
+            background: var(--primary-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        .featured-content h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+        .featured-content .subtitle {
+            font-size: 0.85rem;
+            color: var(--primary-mint);
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+        .featured-content p {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+        .featured-stats {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(138,154,156,0.2);
+            border-bottom: 1px solid rgba(138,154,156,0.2);
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--primary-gray);
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+        }
+        .featured-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary-gray);
+            color: var(--white);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+        .featured-btn:hover {
+            background: var(--primary-mint);
+        }
+
+        /* ========== Projects Grid ========== */
+        .projects-section {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .projects-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .projects-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--primary-gray);
+            color: var(--primary-gray);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-gray);
+            color: var(--white);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: var(--white);
+            border: 1px solid rgba(138,154,156,0.2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border-color: var(--primary-mint);
+        }
+        .project-card-image {
+            aspect-ratio: 16/10;
+            background: var(--primary-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-family: 'Cinzel', serif;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+        }
+        .project-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--white);
+            color: var(--primary-gray);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            z-index: 1;
+        }
+        .project-card-content {
+            padding: 2rem;
+        }
+        .project-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        .project-card .subtitle {
+            font-size: 0.75rem;
+            color: var(--primary-gray);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+        .project-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .project-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--primary-gray);
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+        .project-card-link:hover {
+            color: var(--primary-mint);
+        }
+        .project-card-link::after {
+            content: '→';
+            transition: transform 0.3s;
+        }
+        .project-card-link:hover::after {
+            transform: translateX(5px);
+        }
+
+        /* ========== Timeline Section ========== */
+        .timeline-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(138,154,156,0.05) 0%, rgba(154,200,202,0.05) 100%);
+        }
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-gray);
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--white);
+            border: 2px solid var(--primary-gray);
+            border-radius: 50%;
+            transform: translateX(-5px);
+        }
+        .timeline-item.active::before {
+            background: var(--primary-mint);
+            border-color: var(--primary-mint);
+        }
+        .timeline-date {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--primary-gray);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* ========== CTA Section ========== */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: var(--primary-gray);
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+        .cta-section p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--white);
+            color: var(--primary-gray);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+        .cta-btn:hover {
+            background: var(--primary-mint);
+            color: var(--white);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-section h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            color: var(--primary-mint);
+        }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 0.8rem; }
+        .footer-section ul a {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            transition: color 0.3s;
+        }
+        .footer-section ul a:hover { color: var(--white); }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            text-align: center;
+        }
+        .footer-bottom p {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.05em;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            header { padding: 1rem 1.5rem; }
+            nav { display: none; }
+            .menu-toggle { display: block; }
+            .hero { padding: 8rem 1.5rem 4rem; min-height: 40vh; }
+            .featured-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+            .featured-stats { flex-wrap: wrap; gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDEMARKET</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="ganimedesign.html">DESIGN</a>
+                <a href="ganimedemarket.html">事業内容</a>
+                <a href="inhouse-cf.html">In-house CF</a>
+                <a href="projects.html">プロジェクト</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <span class="hero-label">GANIMEDEMARKET</span>
+        <h1>PROJECTS</h1>
+        <p class="hero-subtitle">社会を変えるプロジェクト</p>
+    </section>
+
+    <section class="intro-section">
+        <div class="intro-container animate-on-scroll">
+            <h2 class="section-title">私たちの挑戦</h2>
+            <p class="intro-text">
+                GANIMEDEMARKETは、社会課題の解決に向けた<br>
+                様々なプロジェクトを推進しています。<br><br>
+                医療アクセスの改善、地域コミュニティの再生、<br>
+                持続可能な社会システムの構築。<br>
+                一つひとつのプロジェクトが、より良い未来への一歩です。
+            </p>
+        </div>
+    </section>
+
+    <section class="featured-project">
+        <div class="featured-container">
+            <span class="featured-badge animate-on-scroll">FEATURED PROJECT</span>
+            <div class="featured-grid">
+                <div class="featured-image animate-on-scroll">
+                    <span>PROJECT IMAGE</span>
+                </div>
+                <div class="featured-content animate-on-scroll">
+                    <h2>極限環境下の命のデザイン</h2>
+                    <p class="subtitle">LIFE DESIGN IN EXTREME CONDITIONS</p>
+                    <p>
+                        医療アクセスが困難な地域において、すべての人に医療を届けるための包括的なシステムをデザインしています。移動診療車、遠隔医療、地域医療従事者の育成を組み合わせた統合的アプローチにより、「医療の届かない場所」をなくすことを目指します。
+                    </p>
+                    <div class="featured-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">対象地域</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">支援対象人数</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">2024</span>
+                            <span class="stat-label">開始年</span>
+                        </div>
+                    </div>
+                    <a href="project-life.html" class="featured-btn">詳細を見る</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects-section">
+        <div class="projects-container">
+            <div class="projects-header animate-on-scroll">
+                <h2 class="section-title">進行中のプロジェクト</h2>
+                <div class="projects-filter">
+                    <button class="filter-btn active" data-filter="all">すべて</button>
+                    <button class="filter-btn" data-filter="life">命のデザイン</button>
+                    <button class="filter-btn" data-filter="system">仕組みのデザイン</button>
+                    <button class="filter-btn" data-filter="story">意味のデザイン</button>
+                </div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card animate-on-scroll" data-category="life">
+                    <div class="project-card-image">
+                        <span class="project-category">命のデザイン</span>
+                        <span>PROJECT IMAGE</span>
+                    </div>
+                    <div class="project-card-content">
+                        <h3>遠隔医療ネットワーク構築</h3>
+                        <p class="subtitle">TELEMEDICINE NETWORK</p>
+                        <p>地方・離島における医療アクセスを改善するための遠隔診療システムを構築。専門医への即時相談を可能にします。</p>
+                        <a href="#" class="project-card-link">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="project-card animate-on-scroll" data-category="system">
+                    <div class="project-card-image">
+                        <span class="project-category">仕組みのデザイン</span>
+                        <span>PROJECT IMAGE</span>
+                    </div>
+                    <div class="project-card-content">
+                        <h3>介護・医療連携プラットフォーム</h3>
+                        <p class="subtitle">CARE COORDINATION PLATFORM</p>
+                        <p>医療機関と介護施設、在宅ケアをシームレスに接続。患者情報の一元管理により、切れ目のないケアを実現します。</p>
+                        <a href="#" class="project-card-link">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="project-card animate-on-scroll" data-category="story">
+                    <div class="project-card-image">
+                        <span class="project-category">意味のデザイン</span>
+                        <span>PROJECT IMAGE</span>
+                    </div>
+                    <div class="project-card-content">
+                        <h3>地域医療ストーリープロジェクト</h3>
+                        <p class="subtitle">LOCAL HEALTHCARE STORY</p>
+                        <p>地域の医療・福祉の歴史を紡ぎ、未来へつなぐ。住民参加型のストーリーテリングで地域の誇りを再発見します。</p>
+                        <a href="#" class="project-card-link">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="project-card animate-on-scroll" data-category="life">
+                    <div class="project-card-image">
+                        <span class="project-category">命のデザイン</span>
+                        <span>PROJECT IMAGE</span>
+                    </div>
+                    <div class="project-card-content">
+                        <h3>移動診療車プロジェクト</h3>
+                        <p class="subtitle">MOBILE CLINIC PROJECT</p>
+                        <p>医療過疎地域に高機能な移動診療車を配備。定期巡回と緊急対応の両立で、地域の命を守ります。</p>
+                        <a href="#" class="project-card-link">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="project-card animate-on-scroll" data-category="system">
+                    <div class="project-card-image">
+                        <span class="project-category">仕組みのデザイン</span>
+                        <span>PROJECT IMAGE</span>
+                    </div>
+                    <div class="project-card-content">
+                        <h3>医療人材育成システム</h3>
+                        <p class="subtitle">HEALTHCARE TALENT DEVELOPMENT</p>
+                        <p>地域で活躍する医療人材を育成するためのプログラムをデザイン。座学とOJTを組み合わせた実践的カリキュラムを提供。</p>
+                        <a href="#" class="project-card-link">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="project-card animate-on-scroll" data-category="story">
+                    <div class="project-card-image">
+                        <span class="project-category">意味のデザイン</span>
+                        <span>PROJECT IMAGE</span>
+                    </div>
+                    <div class="project-card-content">
+                        <h3>終末期ケアの価値再定義</h3>
+                        <p class="subtitle">PALLIATIVE CARE REDEFINITION</p>
+                        <p>人生の最終章を豊かに過ごすためのケアの在り方を再定義。患者と家族に寄り添う新しいモデルを構築します。</p>
+                        <a href="#" class="project-card-link">詳細を見る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section">
+        <div class="timeline-container">
+            <div class="timeline-header animate-on-scroll">
+                <h2 class="section-title">プロジェクトの歩み</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item active animate-on-scroll">
+                    <div class="timeline-date">2024.12</div>
+                    <div class="timeline-title">遠隔医療ネットワーク本格稼働</div>
+                    <div class="timeline-desc">3地域での遠隔診療サービスが本格稼働。月間100件以上の診療を実施。</div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">2024.09</div>
+                    <div class="timeline-title">移動診療車2号機導入</div>
+                    <div class="timeline-desc">より高機能な2号機を導入。眼科・歯科診療にも対応可能に。</div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">2024.06</div>
+                    <div class="timeline-title">介護連携プラットフォームβ版リリース</div>
+                    <div class="timeline-desc">パートナー施設5箇所でのテスト運用を開始。</div>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">2024.03</div>
+                    <div class="timeline-title">GANIMEDEMARKET事業部発足</div>
+                    <div class="timeline-desc">社会課題解決に特化した新事業部としてスタート。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2 class="animate-on-scroll">プロジェクトへの参画</h2>
+        <p class="animate-on-scroll">共に社会を変えるパートナーを募集しています</p>
+        <a href="contact.html" class="cta-btn animate-on-scroll">お問い合わせ</a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GANIMEDESIGN</h3>
+                <ul>
+                    <li><a href="ganimedesign.html">空間のデザイン</a></li>
+                    <li><a href="works.html">施工事例</a></li>
+                    <li><a href="about.html">会社概要</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>GANIMEDEMARKET</h3>
+                <ul>
+                    <li><a href="ganimedemarket.html">事業内容</a></li>
+                    <li><a href="inhouse-cf.html">In-house CF</a></li>
+                    <li><a href="projects.html">プロジェクト</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <ul>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="mailto:info@ganime.jp">info@ganime.jp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 GANIMEDESIGN Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        function toggleMenu() {
+            // Mobile menu toggle
+        }
+    </script>
+</body>
+</html>

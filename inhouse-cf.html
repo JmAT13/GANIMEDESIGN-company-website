@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-house Planning CF | GANIMEDEMARKET</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mint: #9AC8CA;
+            --gray: #8A9A9C;
+            --white: #ffffff;
+            --text-dark: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8; 
+            color: var(--text-dark);
+            background: var(--white);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .animate-on-scroll.animated { opacity: 1; transform: translateY(0); }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            background: rgba(138, 154, 156, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s ease;
+        }
+        header.scrolled {
+            padding: 1rem 4rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            color: var(--white);
+        }
+        nav { display: flex; gap: 2.5rem; }
+        nav a {
+            color: var(--white);
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+        nav a.active { opacity: 1; }
+        nav a.active::after { width: 100%; }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: 0.3s;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 70vh;
+            background: var(--gray);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 6rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--white);
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+            margin-bottom: 1.5rem;
+        }
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--white);
+            opacity: 0.9;
+            max-width: 700px;
+            line-height: 2;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        /* Section Common */
+        .section-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--gray);
+        }
+
+        /* What is this */
+        .what-section {
+            padding: 8rem 2rem;
+            background: var(--white);
+        }
+        .what-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .what-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 500;
+            color: var(--gray);
+            margin-bottom: 3rem;
+        }
+        .what-text {
+            font-size: 1.1rem;
+            line-height: 2.2;
+            color: var(--text-dark);
+        }
+        .what-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Process Flow */
+        .flow-section {
+            padding: 8rem 2rem;
+            background: var(--mint);
+        }
+        .flow-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .flow-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 500;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            position: relative;
+            padding: 0 1rem;
+        }
+        .flow-step::after {
+            content: '→';
+            position: absolute;
+            right: -1rem;
+            top: 30px;
+            font-size: 1.5rem;
+            color: var(--gray);
+            opacity: 0.5;
+        }
+        .flow-step:last-child::after {
+            display: none;
+        }
+        .flow-number {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        .flow-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        .flow-desc {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Target Section */
+        .target-section {
+            padding: 8rem 2rem;
+            background: var(--white);
+        }
+        .target-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .target-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 500;
+            color: var(--gray);
+            margin-bottom: 4rem;
+        }
+        .target-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .target-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border: 1px solid var(--mint);
+            transition: all 0.3s ease;
+        }
+        .target-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(154, 200, 202, 0.2);
+        }
+        .target-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .target-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        .target-card p {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 8rem 2rem;
+            background: var(--gray);
+        }
+        .benefits-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .benefits-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 500;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .benefits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--mint);
+        }
+        .benefit-number {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--mint);
+            line-height: 1;
+        }
+        .benefit-content h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        .benefit-content p {
+            font-size: 0.95rem;
+            color: var(--white);
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 8rem 2rem;
+            background: var(--white);
+        }
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .projects-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 500;
+            color: var(--gray);
+            margin-bottom: 4rem;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            background: var(--mint);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        .project-category {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        .project-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+        .project-desc {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 8rem 2rem;
+            background: var(--mint);
+        }
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .faq-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 4rem;
+        }
+        .faq-list {
+            text-align: left;
+        }
+        .faq-item {
+            border-bottom: 1px solid rgba(138, 154, 156, 0.3);
+        }
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem 0;
+            background: none;
+            border: none;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--gray);
+            transition: transform 0.3s;
+        }
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding-bottom: 1.5rem;
+        }
+        .faq-answer p {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 2rem;
+            background: var(--gray);
+            text-align: center;
+        }
+        .cta-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+        .cta-container p {
+            font-size: 1rem;
+            color: var(--white);
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--white);
+            color: var(--gray);
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            border: 2px solid var(--white);
+            transition: all 0.3s ease;
+        }
+        .cta-btn:hover {
+            background: transparent;
+            color: var(--white);
+        }
+        .cta-btn.secondary {
+            background: transparent;
+            color: var(--white);
+        }
+        .cta-btn.secondary:hover {
+            background: var(--white);
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            padding: 5rem 2rem 2rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+        .footer-section h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+        .footer-section ul {
+            list-style: none;
+        }
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+        .footer-section a {
+            font-size: 0.85rem;
+            color: var(--white);
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .footer-section a:hover {
+            opacity: 1;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .footer-bottom p {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            color: var(--white);
+            opacity: 0.5;
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+            nav {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+            }
+            .flow-step::after {
+                display: none;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .benefit-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDEMARKET</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="ganimedesign.html">DESIGN</a>
+                <a href="ganimedemarket.html">事業内容</a>
+                <a href="inhouse-cf.html" class="active">In-house CF</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-label">GANIMEDEMARKET</div>
+        <h1>In-house Planning CF</h1>
+        <p class="hero-desc">
+            構想から設計、資金調達から実装、そして社会へ——<br>
+            すべてを一貫して担う、新しい形のクラウドファンディング。
+        </p>
+    </section>
+
+    <!-- What is this -->
+    <section class="what-section">
+        <div class="what-container animate-on-scroll">
+            <div class="section-label" style="justify-content: center;">WHAT IS THIS</div>
+            <h2>In-house Planning CFとは</h2>
+            <div class="what-text">
+                <p>
+                    「良いアイデアはあるのに、実現できない」<br>
+                    そんな声に応えるために生まれたのが、In-house Planning CFです。
+                </p>
+                <p>
+                    一般的なクラウドファンディングは「資金を集める」ことに特化しています。
+                    しかし私たちは、その前後にある「構想を練る」「設計する」「実装する」まで、
+                    すべてを自社で完結させます。
+                </p>
+                <p>
+                    外部委託による伝言ゲームも、意図の歪みもありません。
+                    デザイナーと実行者が同一だからこそ実現できる、純度の高いプロジェクト。
+                    それが、In-house Planning CFの本質です。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Flow -->
+    <section class="flow-section">
+        <div class="flow-container">
+            <div class="section-label" style="justify-content: center;">PROCESS</div>
+            <h2>実現までの流れ</h2>
+            <div class="flow-steps">
+                <div class="flow-step animate-on-scroll">
+                    <div class="flow-number">01</div>
+                    <div class="flow-title">ENVISION</div>
+                    <div class="flow-desc">構想を練る</div>
+                </div>
+                <div class="flow-step animate-on-scroll">
+                    <div class="flow-number">02</div>
+                    <div class="flow-title">DESIGN</div>
+                    <div class="flow-desc">設計する</div>
+                </div>
+                <div class="flow-step animate-on-scroll">
+                    <div class="flow-number">03</div>
+                    <div class="flow-title">FUND</div>
+                    <div class="flow-desc">資金を集める</div>
+                </div>
+                <div class="flow-step animate-on-scroll">
+                    <div class="flow-number">04</div>
+                    <div class="flow-title">IMPLEMENT</div>
+                    <div class="flow-desc">実装する</div>
+                </div>
+                <div class="flow-step animate-on-scroll">
+                    <div class="flow-number">05</div>
+                    <div class="flow-title">IMPACT</div>
+                    <div class="flow-desc">社会へ届ける</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target -->
+    <section class="target-section">
+        <div class="target-container">
+            <div class="section-label" style="justify-content: center;">FOR WHOM</div>
+            <h2>こんな方へ</h2>
+            <div class="target-grid">
+                <div class="target-card animate-on-scroll">
+                    <div class="target-icon">💰</div>
+                    <h3>投資家</h3>
+                    <p>社会課題解決と経済リターンを両立する投資機会を探している方</p>
+                </div>
+                <div class="target-card animate-on-scroll">
+                    <div class="target-icon">🏢</div>
+                    <h3>事業者</h3>
+                    <p>新規事業の構想はあるが、実装パートナーを探している方</p>
+                </div>
+                <div class="target-card animate-on-scroll">
+                    <div class="target-icon">🏛️</div>
+                    <h3>行政</h3>
+                    <p>民間との連携で地域課題を解決したい自治体担当者</p>
+                </div>
+                <div class="target-card animate-on-scroll">
+                    <div class="target-icon">🤝</div>
+                    <h3>パートナー</h3>
+                    <p>デザインから実装まで協業できるプロフェッショナル</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits-section">
+        <div class="benefits-container">
+            <div class="section-label" style="justify-content: center; color: var(--white);">BENEFITS</div>
+            <h2>選ばれる理由</h2>
+            <div class="benefits-list">
+                <div class="benefit-item animate-on-scroll">
+                    <span class="benefit-number">01</span>
+                    <div class="benefit-content">
+                        <h3>ビジョンの一貫性</h3>
+                        <p>外部委託による分断がなく、構想の純度を保ったまま実装できます。妥協のないデザインが可能です。</p>
+                    </div>
+                </div>
+                <div class="benefit-item animate-on-scroll">
+                    <span class="benefit-number">02</span>
+                    <div class="benefit-content">
+                        <h3>圧倒的なスピード</h3>
+                        <p>デザインと資金調達を並行して進められるため、従来の半分以下の期間でプロジェクトを立ち上げられます。</p>
+                    </div>
+                </div>
+                <div class="benefit-item animate-on-scroll">
+                    <span class="benefit-number">03</span>
+                    <div class="benefit-content">
+                        <h3>分野横断の知見</h3>
+                        <p>医療・福祉・不動産・金融——異なる分野の専門性を統合したデザインが、新しい価値を生み出します。</p>
+                    </div>
+                </div>
+                <div class="benefit-item animate-on-scroll">
+                    <span class="benefit-number">04</span>
+                    <div class="benefit-content">
+                        <h3>持続可能な収支構造</h3>
+                        <p>理想を追うだけでなく、長期的に持続する収支構造を最初からデザインに組み込みます。</p>
+                    </div>
+                </div>
+                <div class="benefit-item animate-on-scroll">
+                    <span class="benefit-number">05</span>
+                    <div class="benefit-content">
+                        <h3>社会実装の実績</h3>
+                        <p>机上の空論ではなく、実際に動いているプロジェクトがあります。再現可能なモデルとして展開中です。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects-section">
+        <div class="projects-container">
+            <div class="section-label" style="justify-content: center;">PROJECTS</div>
+            <h2>進行中のプロジェクト</h2>
+            <div class="projects-grid">
+                <a href="project-life.html" class="project-card animate-on-scroll">
+                    <span class="project-category">LIFE DESIGN</span>
+                    <h3 class="project-title">極限環境下の命のデザイン</h3>
+                    <p class="project-desc">限られた時間と資源の中で、最適な判断を可能にする構造を構築</p>
+                </a>
+                <a href="project-finance.html" class="project-card animate-on-scroll" style="background: var(--gray);">
+                    <span class="project-category">SYSTEM + STORY</span>
+                    <h3 class="project-title" style="color: var(--white);">介護施設を起点とした金融構造</h3>
+                    <p class="project-desc" style="color: var(--white); opacity: 0.9;">福祉と資本の接点を再デザインし、持続可能なモデルを実装</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <div class="section-label" style="justify-content: center;">FAQ</div>
+            <h2>よくある質問</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">従来のクラウドファンディングとの違いは？</button>
+                    <div class="faq-answer">
+                        <p>一般的なクラウドファンディングが「資金調達」に特化しているのに対し、In-house Planning CFは「構想→デザイン→資金→実装→社会」の全プロセスを一貫して担います。資金だけでなく、専門性と実行力を統合したモデルです。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">どのような分野が対象ですか？</button>
+                    <div class="faq-answer">
+                        <p>医療・福祉・不動産を中心に、社会課題の解決につながるプロジェクトが対象です。空間デザイン、サービスデザイン、金融構造デザインなど、複合的な専門性が必要な案件で特に力を発揮します。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">投資家として参加するには？</button>
+                    <div class="faq-answer">
+                        <p>まずはお問い合わせフォームからご連絡ください。現在進行中のプロジェクトや投資スキームについて、詳しくご説明いたします。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">プロジェクトの成功率は？</button>
+                    <div class="faq-answer">
+                        <p>従来の外部委託型と異なり、デザイナーと実行者が同一であるため、「できること」だけをデザインに落とし込みます。無謀な計画はそもそも立てません。現在進行中のプロジェクトはすべて計画通りに推移しています。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">相談だけでも可能ですか？</button>
+                    <div class="faq-answer">
+                        <p>もちろんです。アイデア段階でも、具体的な課題でも、まずはお気軽にご相談ください。デザイナーとして、一緒に可能性を探ります。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>一緒に、社会をデザインしませんか</h2>
+            <p>構想段階でも、具体的な課題でも。<br>まずは話を聞かせてください。</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-btn">相談する →</a>
+                <a href="ganimedemarket.html" class="cta-btn secondary">事業内容を見る</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GANIMEDESIGN</h3>
+                <ul>
+                    <li><a href="ganimedesign.html">空間のデザイン</a></li>
+                    <li><a href="works.html">施工事例</a></li>
+                    <li><a href="about.html">会社概要</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>GANIMEDEMARKET</h3>
+                <ul>
+                    <li><a href="ganimedemarket.html">命のデザイン</a></li>
+                    <li><a href="ganimedemarket.html">仕組みのデザイン</a></li>
+                    <li><a href="ganimedemarket.html">意味のデザイン</a></li>
+                    <li><a href="inhouse-cf.html">In-house CF</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="about.html">会社について</a></li>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <ul>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="mailto:info@ganime.jp">info@ganime.jp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 GANIMEDESIGN All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('animated');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                item.classList.toggle('open');
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>

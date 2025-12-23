@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GANIMEDEMARKET | 命・仕組み・意味のデザイン</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mint: #9AC8CA;
+            --gray: #8A9A9C;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Cinzel', 'Noto Sans JP', serif;
+            line-height: 1.8; 
+            color: var(--white);
+            background: var(--gray);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .animate-on-scroll.animated { opacity: 1; transform: translateY(0); }
+
+        /* ========== Header ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            background: rgba(138, 154, 156, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s ease;
+        }
+        header.scrolled {
+            padding: 1rem 4rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            color: var(--white);
+        }
+        nav { display: flex; gap: 2rem; }
+        nav a {
+            font-family: 'Cinzel', serif;
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+        nav a.active { opacity: 1; }
+        nav a.active::after { width: 100%; }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .menu-toggle span {
+            width: 24px;
+            height: 1px;
+            background: var(--white);
+            transition: 0.3s;
+        }
+
+        /* ========== Hero ========== */
+        .hero {
+            min-height: 60vh;
+            background: var(--gray);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 5rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--white);
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+            margin-bottom: 1rem;
+        }
+        .hero-desc {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            color: var(--white);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        /* ========== Section Common ========== */
+        .section-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        /* ========== Business Section ========== */
+        .business-section {
+            padding: 6rem 2rem;
+            background: var(--white);
+            color: var(--gray);
+        }
+        .business-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .business-header {
+            margin-bottom: 4rem;
+        }
+        .business-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 400;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+        .business-header .tagline {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            color: var(--gray);
+            opacity: 0.8;
+        }
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .service-card {
+            background: var(--gray);
+            color: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: block;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .service-card-number {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+        .service-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+        .service-card p {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        .service-card-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .service-card-keywords span {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.7rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+        }
+        .service-card-link {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+        .service-card.full-width {
+            grid-column: span 2;
+        }
+
+        /* ========== In-house CF Section ========== */
+        .inhouse-section {
+            padding: 6rem 2rem;
+            background: var(--gray);
+            color: var(--white);
+        }
+        .inhouse-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .inhouse-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .inhouse-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+        .inhouse-header p {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            line-height: 2;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .inhouse-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .feature-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .feature-card p {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        .inhouse-cta {
+            text-align: center;
+        }
+        .btn-light {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            background: var(--white);
+            color: var(--gray);
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-light:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* ========== Projects Section ========== */
+        .projects-section {
+            padding: 6rem 2rem;
+            background: var(--white);
+            color: var(--gray);
+        }
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .projects-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .projects-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 400;
+            color: var(--gray);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .project-card {
+            background: var(--gray);
+            color: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: block;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .project-card-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--gray), #6a7a7c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        .project-card-content {
+            padding: 2rem;
+        }
+        .project-card-category {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+        .project-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        .project-card p {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+        .projects-more {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .btn-outline-gray {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            border: 2px solid var(--gray);
+            color: var(--gray);
+            background: transparent;
+            transition: all 0.3s;
+        }
+        .btn-outline-gray:hover {
+            background: var(--gray);
+            color: var(--white);
+        }
+
+        /* ========== CTA Section ========== */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: var(--mint);
+            text-align: center;
+        }
+        .cta-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .cta-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+        .cta-container p {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            color: var(--white);
+            opacity: 0.9;
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            background: var(--white);
+            color: var(--mint);
+            border: none;
+            transition: all 0.3s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background: var(--gray);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+        .footer-section h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+        }
+        .footer-section ul { list-style: none; }
+        .footer-section li { margin-bottom: 0.75rem; }
+        .footer-section a {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+        .footer-section a:hover { color: var(--white); }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.1em;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            header { padding: 1rem 1.5rem; }
+            nav { display: none; }
+            .menu-toggle { display: flex; }
+            .hero { padding: 8rem 1.5rem 4rem; min-height: 50vh; }
+            .service-grid { grid-template-columns: 1fr; }
+            .service-card.full-width { grid-column: span 1; }
+            .inhouse-features { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDEMARKET</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="ganimedesign.html">DESIGN</a>
+                <a href="ganimedemarket.html" class="active">事業内容</a>
+                <a href="inhouse-cf.html">In-house CF</a>
+                <a href="projects.html">プロジェクト</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <span class="hero-label">GANIMEDEMARKET</span>
+        <h1>命・仕組み・意味のデザイン</h1>
+        <p class="hero-desc">社会システムを、根本からデザインする</p>
+    </section>
+
+    <!-- Life Design Section -->
+    <section class="business-section">
+        <div class="business-container">
+            <div class="business-header animate-on-scroll">
+                <div class="section-label" style="color: var(--gray);">02 LIFE DESIGN</div>
+                <h2>命のデザイン</h2>
+                <p class="tagline">命を、デザインする。</p>
+            </div>
+            <div class="service-grid">
+                <a href="service-emergency.html" class="service-card animate-on-scroll">
+                    <span class="service-card-number">02-1</span>
+                    <h3>救急医療体制デザイン</h3>
+                    <p>限られた時間と資源の中で最善の判断を可能にする救急医療体制のデザイン。極限環境下での意思決定構造を構築。</p>
+                    <div class="service-card-keywords">
+                        <span>救急医療</span>
+                        <span>意思決定デザイン</span>
+                        <span>極限環境</span>
+                    </div>
+                    <span class="service-card-link">詳しく見る →</span>
+                </a>
+                <a href="service-trauma.html" class="service-card animate-on-scroll">
+                    <span class="service-card-number">02-2</span>
+                    <h3>外傷システムデザイン</h3>
+                    <p>重症外傷に対応するシステムのデザイン。医療機関連携から搬送体制まで、命を救う仕組みを最適化。</p>
+                    <div class="service-card-keywords">
+                        <span>外傷医療</span>
+                        <span>連携体制</span>
+                        <span>搬送システム</span>
+                    </div>
+                    <span class="service-card-link">詳しく見る →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Design Section -->
+    <section class="business-section" style="background: var(--gray); color: var(--white);">
+        <div class="business-container">
+            <div class="business-header animate-on-scroll">
+                <div class="section-label" style="color: var(--white);">03 SYSTEM DESIGN</div>
+                <h2 style="color: var(--white);">仕組みのデザイン</h2>
+                <p class="tagline" style="color: var(--white); opacity: 0.9;">仕組みを、デザインする。</p>
+            </div>
+            <div class="service-grid">
+                <a href="inhouse-cf.html" class="service-card full-width animate-on-scroll" style="background: var(--white); color: var(--gray);">
+                    <span class="service-card-number" style="color: var(--gray);">03-1</span>
+                    <h3 style="color: var(--gray);">In-house Planning Cloud Funding</h3>
+                    <p style="color: var(--gray);">構想・デザイン・資金調達・実装までを一気通貫で行う独自の事業推進モデル。従来の外部依存型から脱却し、ビジョンの純度を保ったまま社会実装を実現します。</p>
+                    <div class="service-card-keywords">
+                        <span style="background: var(--gray); color: var(--white);">資金調達</span>
+                        <span style="background: var(--gray); color: var(--white);">一気通貫</span>
+                        <span style="background: var(--gray); color: var(--white);">社会実装</span>
+                        <span style="background: var(--gray); color: var(--white);">投資連携</span>
+                    </div>
+                    <span class="service-card-link" style="color: var(--gray);">詳しく見る →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Design Section -->
+    <section class="business-section">
+        <div class="business-container">
+            <div class="business-header animate-on-scroll">
+                <div class="section-label" style="color: var(--gray);">04 STORY DESIGN</div>
+                <h2>意味のデザイン</h2>
+                <p class="tagline">意味を、デザインする。</p>
+            </div>
+            <div class="service-grid">
+                <div class="service-card animate-on-scroll">
+                    <span class="service-card-number">04-1</span>
+                    <h3>ブランディング</h3>
+                    <p>事業の本質を言語化し、視覚化する。Webサイト、パンフレット、空間まで、一貫したブランド体験をデザイン。</p>
+                    <div class="service-card-keywords">
+                        <span>ブランド構築</span>
+                        <span>言語化</span>
+                        <span>視覚化</span>
+                    </div>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <span class="service-card-number">04-2</span>
+                    <h3>世界観デザイン</h3>
+                    <p>プロジェクトの「物語」をデザインし、関係者全員が共有できる世界観を構築。ビジョンを伝える力を最大化します。</p>
+                    <div class="service-card-keywords">
+                        <span>世界観</span>
+                        <span>ストーリー</span>
+                        <span>共有価値</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- In-house CF Section -->
+    <section class="inhouse-section">
+        <div class="inhouse-container">
+            <div class="inhouse-header animate-on-scroll">
+                <div class="section-label" style="justify-content: center;">IN-HOUSE PLANNING CF</div>
+                <h2>すべてを、自社で完結する</h2>
+                <p>構想から実装まで一貫して担うことで、ビジョンの純度を保ちながら社会実装を実現する独自のモデル。</p>
+            </div>
+            <div class="inhouse-features">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">💡</div>
+                    <h3>PLAN</h3>
+                    <p>構想・企画</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">✏️</div>
+                    <h3>DESIGN</h3>
+                    <p>デザイン・設計</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">💰</div>
+                    <h3>FUND</h3>
+                    <p>資金調達</p>
+                </div>
+            </div>
+            <div class="inhouse-cta">
+                <a href="inhouse-cf.html" class="btn-light">詳しく見る →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <div class="projects-container">
+            <div class="projects-header animate-on-scroll">
+                <div class="section-label" style="justify-content: center; color: var(--gray);">PROJECTS</div>
+                <h2>進行中のプロジェクト</h2>
+            </div>
+            <div class="projects-grid">
+                <a href="project-life.html" class="project-card animate-on-scroll">
+                    <div class="project-card-image">🏥</div>
+                    <div class="project-card-content">
+                        <span class="project-card-category">LIFE DESIGN</span>
+                        <h3>極限環境下の命のデザイン</h3>
+                        <p>限られた時間と資源の中で、最適な判断を可能にする構造を構築</p>
+                    </div>
+                </a>
+                <a href="project-finance.html" class="project-card animate-on-scroll">
+                    <div class="project-card-image">🏦</div>
+                    <div class="project-card-content">
+                        <span class="project-card-category">SYSTEM + STORY</span>
+                        <h3>介護施設を起点とした金融構造</h3>
+                        <p>福祉と資本の接点を再デザインし、持続可能なモデルを実装</p>
+                    </div>
+                </a>
+            </div>
+            <div class="projects-more">
+                <a href="projects.html" class="btn-outline-gray">すべてのプロジェクトを見る →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>一緒に、社会をデザインしませんか</h2>
+            <p>構想段階でも、具体的な課題でも。<br>まずは話を聞かせてください。</p>
+            <a href="contact.html" class="cta-btn">お問い合わせ →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GANIMEDESIGN</h3>
+                <ul>
+                    <li><a href="ganimedesign.html">事業内容</a></li>
+                    <li><a href="works.html">施工事例</a></li>
+                    <li><a href="about.html">会社概要</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>GANIMEDEMARKET</h3>
+                <ul>
+                    <li><a href="ganimedemarket.html">事業内容</a></li>
+                    <li><a href="inhouse-cf.html">In-house Planning CF</a></li>
+                    <li><a href="projects.html">プロジェクト</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <ul>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="mailto:info@ganime.jp">info@ganime.jp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 GANIMEDESIGN Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('animated');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            // Add mobile menu logic here
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会社概要 | GANIMEDESIGN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Sans+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mint: #9AC8CA;
+            --gray: #8A9A9C;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Cinzel', 'Noto Sans JP', serif;
+            line-height: 1.8; 
+            color: var(--gray);
+            background: var(--white);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .animate-on-scroll.animated { opacity: 1; transform: translateY(0); }
+
+        /* ========== Header ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            background: rgba(154, 200, 202, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s ease;
+        }
+        header.scrolled {
+            padding: 1rem 4rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            color: var(--white);
+        }
+        nav { display: flex; gap: 2rem; }
+        nav a {
+            font-family: 'Cinzel', serif;
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after { width: 100%; }
+        nav a.active { opacity: 1; }
+        nav a.active::after { width: 100%; }
+
+        /* ========== Hero ========== */
+        .hero {
+            min-height: 50vh;
+            background: var(--mint);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 5rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease forwards;
+        }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--white);
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        /* ========== Section Common ========== */
+        .section-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        /* ========== Philosophy Section ========== */
+        .philosophy-section {
+            padding: 8rem 2rem;
+            background: var(--white);
+        }
+        .philosophy-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .philosophy-text {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 400;
+            line-height: 2.2;
+            color: var(--gray);
+        }
+        .philosophy-text p {
+            margin-bottom: 2rem;
+        }
+        .philosophy-text .emphasis {
+            color: var(--mint);
+            font-weight: 500;
+        }
+
+        /* ========== Process Section ========== */
+        .process-section {
+            padding: 6rem 2rem;
+            background: var(--mint);
+            color: var(--white);
+        }
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .process-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .process-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        .process-header p {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .process-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+        }
+        .process-step-number {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            opacity: 0.4;
+            margin-bottom: 1rem;
+        }
+        .process-step h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .process-step p {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* ========== Message Section ========== */
+        .message-section {
+            padding: 8rem 2rem;
+            background: var(--gray);
+            color: var(--white);
+            text-align: center;
+        }
+        .message-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .message-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 400;
+            margin-bottom: 3rem;
+        }
+        .message-content {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1.1rem;
+            line-height: 2.2;
+            margin-bottom: 3rem;
+        }
+        .message-content p {
+            margin-bottom: 1rem;
+        }
+        .message-content .highlight {
+            color: var(--white);
+            font-weight: 500;
+            font-size: 1.3rem;
+        }
+        .message-signature {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            opacity: 0.7;
+        }
+
+        /* ========== Company Section ========== */
+        .company-section {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+        .company-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .company-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 400;
+            color: var(--mint);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .company-table {
+            margin-bottom: 3rem;
+        }
+        .company-row {
+            display: flex;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(138, 154, 156, 0.2);
+        }
+        .company-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            min-width: 150px;
+            color: var(--mint);
+        }
+        .company-value {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+            flex: 1;
+            color: var(--gray);
+        }
+        .company-value a {
+            color: var(--mint);
+            transition: opacity 0.3s;
+        }
+        .company-value a:hover {
+            opacity: 0.7;
+        }
+
+        /* ========== CTA Section ========== */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: var(--mint);
+            text-align: center;
+        }
+        .cta-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .cta-container h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+        .cta-container p {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            color: var(--white);
+            opacity: 0.9;
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            background: var(--white);
+            color: var(--mint);
+            border: none;
+            transition: all 0.3s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background: var(--gray);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+        .footer-section h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+        }
+        .footer-section ul { list-style: none; }
+        .footer-section li { margin-bottom: 0.75rem; }
+        .footer-section a {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+        .footer-section a:hover { color: var(--white); }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.1em;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            header { padding: 1rem 1.5rem; }
+            nav { display: none; }
+            .hero { padding: 8rem 1.5rem 4rem; min-height: 40vh; }
+            .process-steps { flex-direction: column; }
+            .company-row { flex-direction: column; gap: 0.5rem; }
+            .company-label { min-width: auto; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">GANIMEDESIGN</a>
+            <nav>
+                <a href="index.html">HOME</a>
+                <a href="ganimedesign.html">空間のデザイン</a>
+                <a href="ganimedemarket.html">MARKET</a>
+                <a href="about.html" class="active">会社概要</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <span class="hero-label">ABOUT</span>
+        <h1>会社概要</h1>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="philosophy-section">
+        <div class="philosophy-container animate-on-scroll">
+            <div class="section-label" style="color: var(--gray);">PHILOSOPHY</div>
+            <div class="philosophy-text">
+                <p><span class="emphasis">世界は、デザインで変えられる。</span></p>
+                <p>答えより構造を。</p>
+                <p><span class="emphasis">思想を、実装せよ。</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process-section">
+        <div class="process-container">
+            <div class="process-header animate-on-scroll">
+                <div class="section-label" style="justify-content: center;">PROCESS</div>
+                <h2>すべて共通のデザイン思想</h2>
+                <p>対象が何であれ、同じ工程を踏む。</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">01</div>
+                    <h3>DEFINE</h3>
+                    <p>問題を定義する</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">02</div>
+                    <h3>BREAK</h3>
+                    <p>構造を分解する</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">03</div>
+                    <h3>DESIGN</h3>
+                    <p>再デザインする</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">04</div>
+                    <h3>BUILD</h3>
+                    <p>実装する</p>
+                </div>
+                <div class="process-step animate-on-scroll">
+                    <div class="process-step-number">05</div>
+                    <h3>SCALE</h3>
+                    <p>社会に流す</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message -->
+    <section class="message-section">
+        <div class="message-container animate-on-scroll">
+            <div class="section-label" style="justify-content: center;">MESSAGE</div>
+            <h2 class="message-title">GANIMEという存在</h2>
+            <div class="message-content">
+                <p>世界は、選ばれた人間が変えるんじゃない。</p>
+                <p>特別じゃなくていい。</p>
+                <p><span class="highlight">創造できるものは、必ず現実にできる。</span></p>
+            </div>
+            <div class="message-signature">
+                <span>— Founder, GANIMEDESIGN</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Info -->
+    <section class="company-section">
+        <div class="company-container">
+            <h2>会社概要</h2>
+            <div class="company-table">
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">会社名</div>
+                    <div class="company-value">GANIMEDESIGN株式会社</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">設立</div>
+                    <div class="company-value">2025年5月</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">代表</div>
+                    <div class="company-value">角田　剛</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">所在地</div>
+                    <div class="company-value">東京都中央区東日本橋3-3-17</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">事業内容</div>
+                    <div class="company-value">Space DESIGN / Life DESIGN / System DESIGN / Story DESIGN</div>
+                </div>
+                <div class="company-row animate-on-scroll">
+                    <div class="company-label">メール</div>
+                    <div class="company-value"><a href="mailto:info@ganime.jp">info@ganime.jp</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>デザインの相談窓口</h2>
+            <p>分野は問いません。<br>一緒に、デザインしましょう。</p>
+            <a href="contact.html" class="cta-btn">お問い合わせ →</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>GANIMEDESIGN</h3>
+                <ul>
+                    <li><a href="ganimedesign.html">事業内容</a></li>
+                    <li><a href="works.html">施工事例</a></li>
+                    <li><a href="about.html">会社概要</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>GANIMEDEMARKET</h3>
+                <ul>
+                    <li><a href="ganimedemarket.html">事業内容</a></li>
+                    <li><a href="inhouse-cf.html">In-house Planning CF</a></li>
+                    <li><a href="projects.html">プロジェクト</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>INFORMATION</h3>
+                <ul>
+                    <li><a href="news.html">お知らせ</a></li>
+                    <li><a href="privacy-policy.html">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <ul>
+                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="mailto:info@ganime.jp">info@ganime.jp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 GANIMEDESIGN All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('animated');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
